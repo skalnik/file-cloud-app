@@ -7,16 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9414D4FB282AF10100A5464D /* MenuBarExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9414D4FA282AF10100A5464D /* MenuBarExtra.swift */; };
 		947D04C2282AF0BF00D83248 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947D04C1282AF0BF00D83248 /* Tests_iOS.swift */; };
 		947D04C4282AF0BF00D83248 /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947D04C3282AF0BF00D83248 /* Tests_iOSLaunchTests.swift */; };
 		947D04CE282AF0BF00D83248 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947D04CD282AF0BF00D83248 /* Tests_macOS.swift */; };
 		947D04D0282AF0BF00D83248 /* Tests_macOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947D04CF282AF0BF00D83248 /* Tests_macOSLaunchTests.swift */; };
 		947D04D1282AF0BF00D83248 /* File_CloudApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947D04A9282AF0BE00D83248 /* File_CloudApp.swift */; };
 		947D04D2282AF0BF00D83248 /* File_CloudApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947D04A9282AF0BE00D83248 /* File_CloudApp.swift */; };
-		947D04D3282AF0BF00D83248 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947D04AA282AF0BE00D83248 /* ContentView.swift */; };
-		947D04D4282AF0BF00D83248 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947D04AA282AF0BE00D83248 /* ContentView.swift */; };
 		947D04D5282AF0BF00D83248 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 947D04AB282AF0BF00D83248 /* Assets.xcassets */; };
 		947D04D6282AF0BF00D83248 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 947D04AB282AF0BF00D83248 /* Assets.xcassets */; };
+		94EB160D282E1B5D0099E47F /* FileUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EB160C282E1B5D0099E47F /* FileUploader.swift */; };
+		94EB160E282E1B5D0099E47F /* FileUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EB160C282E1B5D0099E47F /* FileUploader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,8 +38,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9414D4FA282AF10100A5464D /* MenuBarExtra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarExtra.swift; sourceTree = "<group>"; };
+		9414D4FC282AF2C700A5464D /* File-Cloud--macOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "File-Cloud--macOS--Info.plist"; sourceTree = "<group>"; };
 		947D04A9282AF0BE00D83248 /* File_CloudApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File_CloudApp.swift; sourceTree = "<group>"; };
-		947D04AA282AF0BE00D83248 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		947D04AB282AF0BF00D83248 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		947D04B0282AF0BF00D83248 /* File Cloud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "File Cloud.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		947D04B6282AF0BF00D83248 /* File Cloud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "File Cloud.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,6 +51,7 @@
 		947D04C9282AF0BF00D83248 /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		947D04CD282AF0BF00D83248 /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		947D04CF282AF0BF00D83248 /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
+		94EB160C282E1B5D0099E47F /* FileUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUploader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +89,7 @@
 		947D04A3282AF0BE00D83248 = {
 			isa = PBXGroup;
 			children = (
+				9414D4FC282AF2C700A5464D /* File-Cloud--macOS--Info.plist */,
 				947D04A8282AF0BE00D83248 /* Shared */,
 				947D04B7282AF0BF00D83248 /* macOS */,
 				947D04C0282AF0BF00D83248 /* Tests iOS */,
@@ -98,8 +102,8 @@
 			isa = PBXGroup;
 			children = (
 				947D04A9282AF0BE00D83248 /* File_CloudApp.swift */,
-				947D04AA282AF0BE00D83248 /* ContentView.swift */,
 				947D04AB282AF0BF00D83248 /* Assets.xcassets */,
+				94EB160C282E1B5D0099E47F /* FileUploader.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -119,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				947D04B8282AF0BF00D83248 /* macOS.entitlements */,
+				9414D4FA282AF10100A5464D /* MenuBarExtra.swift */,
 			);
 			path = macOS;
 			sourceTree = "<group>";
@@ -299,8 +304,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				947D04D3282AF0BF00D83248 /* ContentView.swift in Sources */,
 				947D04D1282AF0BF00D83248 /* File_CloudApp.swift in Sources */,
+				94EB160D282E1B5D0099E47F /* FileUploader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,7 +313,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				947D04D4282AF0BF00D83248 /* ContentView.swift in Sources */,
+				94EB160E282E1B5D0099E47F /* FileUploader.swift in Sources */,
+				9414D4FB282AF10100A5464D /* MenuBarExtra.swift in Sources */,
 				947D04D2282AF0BF00D83248 /* File_CloudApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -530,6 +536,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "File-Cloud--macOS--Info.plist";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -558,6 +565,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "File-Cloud--macOS--Info.plist";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
