@@ -14,9 +14,7 @@ struct File_CloudApp: App {
     
     var body: some Scene {
         Settings {
-            TabView {
-                
-            }.frame(width: 450, height: 250)
+            SettingsView()
         }
     }
 }

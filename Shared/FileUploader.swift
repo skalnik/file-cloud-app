@@ -65,6 +65,8 @@ class FileUploader: NSObject {
     }
     
     func completionHandler(data: Data?, response: URLResponse?, error: Error?) -> Void {
+        self.fileURL = nil
+
         if error != nil {
             delegate?.error(error:"Error took place \(String(describing: error))")
             return
@@ -90,16 +92,19 @@ class FileUploader: NSObject {
         
         formData.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
         formData.append("Content-Disposition: form-data; name=\"file\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
-        formData.append("Content-Type: \(String(describing: mimeType(fileURL: fileURL)))\r\n\r\n".data(using: .utf8)!)
+        let mimeType = mimeType(fileURL: fileURL)
+        if mimeType != nil {
+            formData.append("Content-Type: \(String(describing: mimeType!))\r\n\r\n".data(using: .utf8)!)
+        }
         formData.append(fileData!)
         formData.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
         
         return formData
     }
     
-    func mimeType(fileURL: URL) -> String {
+    func mimeType(fileURL: URL) -> String? {
         let fileExtension = fileURL.pathExtension
         
-        return UTTypeReference.init(filenameExtension: fileExtension)?.preferredMIMEType ?? "application/octet-stream"
+        return UTTypeReference.init(filenameExtension: fileExtension)?.preferredMIMEType
     }
 }
