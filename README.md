@@ -1,6 +1,6 @@
 #  FileCloud.app
 
-Upload files to [https://github.com/skalnik/file-cloud]
+Upload files to [File Cloud](https://github.com/skalnik/file-cloud)
 
 ## To do
 
