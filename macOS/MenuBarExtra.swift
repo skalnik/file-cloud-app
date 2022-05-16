@@ -38,7 +38,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate {
     }
 
     func delayedInit () {
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false, block: {timer in
+        Timer.scheduledTimer(withTimeInterval: 2.5, repeats: false, block: {timer in
             self.initImage()
         })
     }
