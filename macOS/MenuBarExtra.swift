@@ -6,10 +6,12 @@
 //
 
 import AppKit
+import UserNotifications
 
 class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate {
     var statusBarItem: NSStatusItem!
     var uploader: FileUploader!
+    var notifications: Bool!
     
     func applicationDidFinishLaunching(_ notification: Notification) {
         self.uploader = FileUploader.shared
@@ -25,6 +27,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate {
         statusBarItem.button?.target = self
                
         self.statusBarItem.menu = createMenu()
+
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { (granted, _) in
+            self.notifications = granted
+        }
     }
     
     func initImage() {
@@ -53,21 +59,37 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate {
             statusBarItem.button?.image = NSImage(systemSymbolName: "xmark", accessibilityDescription: "Error!")
             delayedInit()
         }
-        
+
+        displayNotification(title: "File Cloud Error", body: error)
         print(error)
     }
     
     func uploaded(url: URL) {
         DispatchQueue.main.sync {
             statusBarItem.button?.image = NSImage(systemSymbolName: "checkmark", accessibilityDescription: "Uploaded!")
+
             delayedInit()
         }
-
-        print("Uploaded")
-        
         let pasteboard = NSPasteboard.general
         pasteboard.declareTypes([NSPasteboard.PasteboardType.string], owner: nil)
         pasteboard.setString(url.absoluteString, forType: NSPasteboard.PasteboardType.string)
+        
+        displayNotification(title: "File Uploaded!", body: "URL copied to your clipboard")
+    }
+
+    func displayNotification(title: String!, body: String!) {
+        if !notifications {
+            return
+        }
+
+        let center = UNUserNotificationCenter.current()
+        let content = UNMutableNotificationContent()
+        content.title = title
+        content.body = body
+        content.sound = UNNotificationSound.default
+        
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
+        center.add(request)
     }
     
     @objc func quit(_ sender: Any?) {
@@ -95,6 +117,7 @@ extension NSStatusBarButton {
     }
 
     open override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
+        image = NSImage(systemSymbolName: "arrow.up", accessibilityDescription: "Uploading file")
         FileUploader.shared.upload()
 
         return true
