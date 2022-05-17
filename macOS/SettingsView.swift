@@ -19,9 +19,6 @@ struct SettingsView: View {
                 TextField("Username", text: $username).disableAutocorrection(true)
                 SecureField("Password", text: $password)
             }
-            Button("Check") {
-                return
-            }
         }
         .padding()
         .frame(width: 400, height: 150)
