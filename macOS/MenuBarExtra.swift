@@ -45,6 +45,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate {
 
     func createMenu() -> NSMenu {
         let menu = NSMenu()
+        let title = NSMenuItem(title: "📂☁️ File Cloud", action: nil, keyEquivalent: "")
+        title.isEnabled = false
+        
+        menu.addItem(title)
+        menu.addItem(NSMenuItem.separator())
+        
         let configureMenuItem = menu.addItem(withTitle: "Preferences…", action: #selector(configure), keyEquivalent: ",")
         configureMenuItem.target = self
         
@@ -98,6 +104,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate {
     
     @objc func configure(_ sender: Any?) {
         NSApp.sendAction(Selector(("showPreferencesWindow:")), to: nil, from: nil)
+        NSApp.activate(ignoringOtherApps: true)
     }
 }
 
