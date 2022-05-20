@@ -15,10 +15,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate {
     var uploadOnEnter: Bool!
     
     func applicationDidFinishLaunching(_ notification: Notification) {
-        self.uploader = FileUploader.shared
-        self.uploader.serverURL = URL(string: UserDefaults.standard.string(forKey: "serverURL") ?? "https://cloud.example.com") ?? URL(string: "https://cloud.example.com")
-        self.uploader.username = UserDefaults.standard.string(forKey: "username")
-        self.uploader.password = UserDefaults.standard.string(forKey: "password")
+        let serverURL = URL(string: UserDefaults.standard.string(forKey: "serverURL")!)
+        
+        self.uploader = FileUploader.init(serverURL: serverURL!, username: UserDefaults.standard.string(forKey: "username")!, password: UserDefaults.standard.string(forKey: "password")!)
         self.uploader.delegate = self
         
         self.uploadOnEnter = UserDefaults.standard.bool(forKey: "uploadOnEnter")

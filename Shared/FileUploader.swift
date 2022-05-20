@@ -16,7 +16,6 @@ protocol UploadDelegate {
 }
 
 class FileUploader: NSObject {
-    static let shared = FileUploader()
     var serverURL: URL?
     var username: String?
     var password: String?
@@ -31,15 +30,12 @@ class FileUploader: NSObject {
         var url: String
     }
     
-    override private init() {
-        self.serverURL = nil
-        self.username = nil
-        self.password = nil
-        self.fileURL = nil
+    init(serverURL: URL?, username: String?, password: String?) {
+        self.serverURL = serverURL
+        self.username = username
+        self.password = password
         
         self.urlSession = URLSession.shared
-        
-        super.init()
     }
     
     func upload() {

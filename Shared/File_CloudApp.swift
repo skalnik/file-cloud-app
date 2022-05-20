@@ -10,7 +10,6 @@ import SwiftUI
 @main
 struct File_CloudApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    var uploader = FileUploader.shared
     
     var body: some Scene {
         Settings {
