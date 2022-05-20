@@ -32,7 +32,7 @@ struct SettingsView: View {
             
             VStack {
                 Toggle(isOn: $uploadOnEnter) {
-                    Text("Upload on Drag Enter")
+                    Text("Begin uploading upon drag enter")
                 }
             }
             .tabItem {
