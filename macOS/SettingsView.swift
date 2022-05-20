@@ -37,8 +37,6 @@ struct SettingsView: View {
             }
             .tabItem {
                 Label("Advanced", systemImage: "gear")
-                Image(systemName: "gear")
-                Text("Advanced")
             }
             .padding()
             .tag(2)
