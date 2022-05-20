@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9414D4FB282AF10100A5464D /* MenuBarExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9414D4FA282AF10100A5464D /* MenuBarExtra.swift */; };
+		945BB8A5283828DF000E94D1 /* NSStatusBarButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945BB8A4283828DF000E94D1 /* NSStatusBarButtonExtension.swift */; };
 		947D04C2282AF0BF00D83248 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947D04C1282AF0BF00D83248 /* Tests_iOS.swift */; };
 		947D04C4282AF0BF00D83248 /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947D04C3282AF0BF00D83248 /* Tests_iOSLaunchTests.swift */; };
 		947D04CE282AF0BF00D83248 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947D04CD282AF0BF00D83248 /* Tests_macOS.swift */; };
@@ -41,6 +42,7 @@
 /* Begin PBXFileReference section */
 		9414D4FA282AF10100A5464D /* MenuBarExtra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarExtra.swift; sourceTree = "<group>"; };
 		9414D4FC282AF2C700A5464D /* File-Cloud--macOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "File-Cloud--macOS--Info.plist"; sourceTree = "<group>"; };
+		945BB8A4283828DF000E94D1 /* NSStatusBarButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSStatusBarButtonExtension.swift; sourceTree = "<group>"; };
 		947D04A9282AF0BE00D83248 /* File_CloudApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File_CloudApp.swift; sourceTree = "<group>"; };
 		947D04AB282AF0BF00D83248 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		947D04B0282AF0BF00D83248 /* File Cloud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "File Cloud.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,6 +131,7 @@
 				94A5419C2832BD7800C6E440 /* SettingsView.swift */,
 				947D04B8282AF0BF00D83248 /* macOS.entitlements */,
 				9414D4FA282AF10100A5464D /* MenuBarExtra.swift */,
+				945BB8A4283828DF000E94D1 /* NSStatusBarButtonExtension.swift */,
 			);
 			path = macOS;
 			sourceTree = "<group>";
@@ -320,6 +323,7 @@
 			files = (
 				94EB160E282E1B5D0099E47F /* FileUploader.swift in Sources */,
 				94A5419D2832BD7800C6E440 /* SettingsView.swift in Sources */,
+				945BB8A5283828DF000E94D1 /* NSStatusBarButtonExtension.swift in Sources */,
 				9414D4FB282AF10100A5464D /* MenuBarExtra.swift in Sources */,
 				947D04D2282AF0BF00D83248 /* File_CloudApp.swift in Sources */,
 			);
