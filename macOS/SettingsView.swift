@@ -27,7 +27,7 @@ struct SettingsView: View {
                 Label("Authentication", systemImage: "lock")
             }
             .padding()
-            .frame(width: 420, height: 169)
+            .frame(width: 420)
             .tag(1)
             
             VStack {
