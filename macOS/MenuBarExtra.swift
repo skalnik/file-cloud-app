@@ -152,7 +152,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate {
     }
     
     @objc func updateSettings() {
-        print("updating")
         self.uploader.serverURL = URL(string: UserDefaults.standard.string(forKey: "serverURL")!)
         self.uploader.username = UserDefaults.standard.string(forKey: "username")
         self.uploader.password = UserDefaults.standard.string(forKey: "password")
