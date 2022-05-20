@@ -34,6 +34,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { (granted, _) in
             self.notifications = granted
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateSettings), name: UserDefaults.didChangeNotification, object: nil)
     }
     
     @objc func initImage() {
@@ -147,5 +149,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate {
         if !uploadOnEnter {
             initImage()
         }
+    }
+    
+    @objc func updateSettings() {
+        print("updating")
+        self.uploader.serverURL = URL(string: UserDefaults.standard.string(forKey: "serverURL")!)
+        self.uploader.username = UserDefaults.standard.string(forKey: "username")
+        self.uploader.password = UserDefaults.standard.string(forKey: "password")
+        self.uploadOnEnter = UserDefaults.standard.bool(forKey: "uploadOnEnter")
     }
 }
