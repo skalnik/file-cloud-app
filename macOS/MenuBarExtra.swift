@@ -12,28 +12,32 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate {
     var statusBarItem: NSStatusItem!
     var uploader: FileUploader!
     var notifications: Bool!
+    var uploadOnEnter: Bool!
     
     func applicationDidFinishLaunching(_ notification: Notification) {
         self.uploader = FileUploader.shared
-        self.uploader.serverURL = URL(string: UserDefaults.standard.string(forKey: "serverURL")!)!
+        self.uploader.serverURL = URL(string: UserDefaults.standard.string(forKey: "serverURL") ?? "https://cloud.example.com") ?? URL(string: "https://cloud.example.com")
         self.uploader.username = UserDefaults.standard.string(forKey: "username")
         self.uploader.password = UserDefaults.standard.string(forKey: "password")
         self.uploader.delegate = self
         
+        self.uploadOnEnter = UserDefaults.standard.bool(forKey: "uploadOnEnter")
+        
         let statusBar = NSStatusBar.system
-        statusBarItem = statusBar.statusItem(withLength: NSStatusItem.squareLength)
+        self.statusBarItem = statusBar.statusItem(withLength: NSStatusItem.squareLength)
+        
         initImage()
         statusBarItem.button?.registerForDraggedTypes([.fileURL])
         statusBarItem.button?.target = self
                
-        self.statusBarItem.menu = createMenu()
+        statusBarItem.menu = createMenu()
 
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { (granted, _) in
             self.notifications = granted
         }
     }
     
-    func initImage() {
+    @objc func initImage() {
         statusBarItem.button?.image = NSImage(systemSymbolName: "cloud.fill", accessibilityDescription: "File Cloud")
     }
 
@@ -71,16 +75,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate {
     }
     
     func uploaded(url: URL) {
+        print("Uploaded")
         DispatchQueue.main.sync {
             statusBarItem.button?.image = NSImage(systemSymbolName: "checkmark", accessibilityDescription: "Uploaded!")
-
             delayedInit()
         }
+
         let pasteboard = NSPasteboard.general
         pasteboard.declareTypes([NSPasteboard.PasteboardType.string], owner: nil)
         pasteboard.setString(url.absoluteString, forType: NSPasteboard.PasteboardType.string)
         
         displayNotification(title: "File Uploaded!", body: "URL copied to your clipboard")
+    }
+    
+    func uploading() {
+        statusBarItem.button?.image = NSImage(systemSymbolName: "arrow.up", accessibilityDescription: "Uploading file")
     }
 
     func displayNotification(title: String!, body: String!) {
@@ -106,17 +115,53 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate {
         NSApp.sendAction(Selector(("showPreferencesWindow:")), to: nil, from: nil)
         NSApp.activate(ignoringOtherApps: true)
     }
+    
+    @objc func dragEntered(_ sender: NSDraggingInfo) {
+        // Check everytime on drag enter in case it's changed
+        self.uploadOnEnter = UserDefaults.standard.bool(forKey: "uploadOnEnter")
+        
+        statusBarItem.button?.image? = NSImage(systemSymbolName: "cloud", accessibilityDescription: "Ready to upload")!
+        
+        if uploadOnEnter {
+            if let fileURL = NSURL.init(from: sender.draggingPasteboard)?.standardized {
+                uploader.fileURL = fileURL
+                uploader.upload()
+            }
+        }
+    }
+    
+    @objc func prepareDrag(_ sender: NSDraggingInfo) {
+        if !uploadOnEnter {
+            if let fileURL = NSURL.init(from: sender.draggingPasteboard)?.standardized {
+                uploader.fileURL = fileURL
+            }
+        }
+    }
+    
+    @objc func performDrag(_ sender: Any?) {
+        if !uploadOnEnter {
+            uploader.upload()
+        }
+    }
+    
+    @objc func dragExit(_ sender: Any? ) {
+        if !uploadOnEnter {
+            initImage()
+        }
+    }
 }
 
 extension NSStatusBarButton {
     open override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
-        image = NSImage(systemSymbolName: "cloud", accessibilityDescription: "Ready to upload")
+        NSApp.sendAction(#selector(AppDelegate.dragEntered(_:)), to: nil, from: sender)
+        
         return .copy
     }
 
     open override func prepareForDragOperation(_ sender: NSDraggingInfo) -> Bool {
-        if let fileURL = NSURL.init(from: sender.draggingPasteboard)?.standardized {
-            FileUploader.shared.fileURL = fileURL
+        NSApp.sendAction(#selector(AppDelegate.prepareDrag(_:)), to: nil, from: sender)
+        
+        if NSURL.init(from: sender.draggingPasteboard)?.standardized != nil {
             return true
         } else {
             return false
@@ -124,13 +169,12 @@ extension NSStatusBarButton {
     }
 
     open override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
-        image = NSImage(systemSymbolName: "arrow.up", accessibilityDescription: "Uploading file")
-        FileUploader.shared.upload()
+        NSApp.sendAction(#selector(AppDelegate.performDrag(_:)), to: nil, from: sender)
 
         return true
     }
     
     open override func draggingExited(_ sender: NSDraggingInfo?) {
-        image = NSImage(systemSymbolName: "cloud.fill", accessibilityDescription: "File Cloud")
+        NSApp.sendAction(#selector(AppDelegate.dragExit(_:)), to: nil, from: nil)
     }
 }

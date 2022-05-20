@@ -12,6 +12,7 @@ import UniformTypeIdentifiers
 protocol UploadDelegate {
     func error(error: String)
     func uploaded(url: URL)
+    func uploading()
 }
 
 class FileUploader: NSObject {
@@ -42,6 +43,8 @@ class FileUploader: NSObject {
     }
     
     func upload() {
+        delegate?.uploading()
+
         var request = URLRequest(url: serverURL!)
         request.httpMethod = "POST"
         
