@@ -1,4 +1,4 @@
-#  FileCloud.app
+#  File Cloud.app
 
 Upload files to [File Cloud](https://github.com/skalnik/file-cloud)
 
@@ -8,5 +8,9 @@ Upload files to [File Cloud](https://github.com/skalnik/file-cloud)
 - [x] Make it upload files
 - [x] Configuration for server info
 - [x] Notification for when it's uploaded
-- [ ] Icon
+- [x] Allows upload from dock (with upload on drag enter)
+- [ ] Explainer pop over thing for upload on drag enter
+- [ ] Launch at Login
+- [x] Icon
+- [ ] Better icon
 - [ ] iOS/iPadOS version as share extension
