@@ -12,7 +12,7 @@ struct SettingsView: View {
     @AppStorage("username") var username: String = ""
     @AppStorage("password") var password: String = ""
     @AppStorage("uploadOnEnter") var uploadOnEnter: Bool = false
-    @State private var selection = 1
+    @State var selection = 1
     
     var body: some View {
         TabView(selection: $selection) {
@@ -47,7 +47,8 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            SettingsView()
+            SettingsView(selection: 1)
+            SettingsView(selection: 2)
         }
     }
 }
