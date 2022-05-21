@@ -6,16 +6,17 @@
 //
 
 import SwiftUI
+import LaunchAtLogin
 
 struct SettingsView: View {
     @AppStorage("serverURL") var serverURL: String = ""
     @AppStorage("username") var username: String = ""
     @AppStorage("password") var password: String = ""
     @AppStorage("uploadOnEnter") var uploadOnEnter: Bool = false
-    @State var selection = 1
+    @State var pane = 1
     
     var body: some View {
-        TabView(selection: $selection) {
+        TabView(selection: $pane) {
             VStack {
                 Form {
                     TextField("Server URL", text: $serverURL, prompt: Text("https://cloud.example.com"))
@@ -30,11 +31,14 @@ struct SettingsView: View {
             .frame(width: 420)
             .tag(1)
             
-            VStack {
+            VStack(alignment: .leading) {
                 Toggle(isOn: $uploadOnEnter) {
                     Text("Begin uploading upon drag enter")
                     Image(systemName: "info.circle.fill")
                         .help("Allows faster uploading, along with uploading from Dock Stacks, due to macOS Bug")
+                }
+                LaunchAtLogin.Toggle {
+                    Text("Launch at login")
                 }
             }
             .tabItem {
@@ -49,8 +53,8 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            SettingsView(selection: 1)
-            SettingsView(selection: 2)
+            SettingsView(pane: 1)
+            SettingsView(pane: 2)
         }
     }
 }

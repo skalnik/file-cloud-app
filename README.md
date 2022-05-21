@@ -10,7 +10,8 @@ Upload files to [File Cloud](https://github.com/skalnik/file-cloud)
 - [x] Notification for when it's uploaded
 - [x] Allows upload from dock (with upload on drag enter)
 - [x] Explainer pop over thing for upload on drag enter
-- [ ] Launch at Login
+- [x] Launch at Login
 - [x] Icon
 - [ ] Better icon
 - [ ] iOS/iPadOS version as share extension
+- [ ] 15 minute keep alive option to ensure uploads happen fast even with app spin downs
