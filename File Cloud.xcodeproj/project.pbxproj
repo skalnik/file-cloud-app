@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		9414D4FB282AF10100A5464D /* MenuBarExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9414D4FA282AF10100A5464D /* MenuBarExtra.swift */; };
-		941AACA8283971F800D94B48 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 941AACA7283971F800D94B48 /* LaunchAtLogin */; };
 		941AACAC283972E900D94B48 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 941AACAB283972E900D94B48 /* LaunchAtLogin */; };
 		945BB8A5283828DF000E94D1 /* NSStatusBarButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945BB8A4283828DF000E94D1 /* NSStatusBarButtonExtension.swift */; };
 		947D04C2282AF0BF00D83248 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947D04C1282AF0BF00D83248 /* Tests_iOS.swift */; };
@@ -66,7 +65,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				941AACA8283971F800D94B48 /* LaunchAtLogin in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,7 +181,6 @@
 			);
 			name = "File Cloud (iOS)";
 			packageProductDependencies = (
-				941AACA7283971F800D94B48 /* LaunchAtLogin */,
 			);
 			productName = "File Cloud (iOS)";
 			productReference = 947D04B0282AF0BF00D83248 /* File Cloud.app */;
@@ -780,11 +777,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		941AACA7283971F800D94B48 /* LaunchAtLogin */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 941AACA6283971F800D94B48 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
-			productName = LaunchAtLogin;
-		};
 		941AACAB283972E900D94B48 /* LaunchAtLogin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 941AACA6283971F800D94B48 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
