@@ -9,22 +9,23 @@ import SwiftUI
 
 @main
 struct File_CloudApp: App {
-    #if macOS
+    #if os(macOS)
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     #endif
     
+    
     var body: some Scene {
-        #if macOS
+#if os(macOS)
         Settings {
             SettingsView()
         }
-        #else
+#endif
+#if os(iOS)
         WindowGroup {
             VStack {
                Text("Hello World")
             }
         }
-        #endif
-        
+#endif
     }
 }
