@@ -19,3 +19,4 @@ Upload files to [File Cloud](https://github.com/skalnik/file-cloud)
 - [ ] Better icon
 - [ ] iOS/iPadOS version as share extension
 - [ ] 15 minute keep alive option to ensure uploads happen fast even with app spin downs
+- [ ] Share extension in macOS
