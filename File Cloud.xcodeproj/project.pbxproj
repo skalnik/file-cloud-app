@@ -19,6 +19,8 @@
 		947D04D5282AF0BF00D83248 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 947D04AB282AF0BF00D83248 /* Assets.xcassets */; };
 		947D04D6282AF0BF00D83248 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 947D04AB282AF0BF00D83248 /* Assets.xcassets */; };
 		94A5419D2832BD7800C6E440 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A5419C2832BD7800C6E440 /* SettingsView.swift */; };
+		94BC795E2841AAA9003587E8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BC795D2841AAA9003587E8 /* MainView.swift */; };
+		94BC795F2841AAB0003587E8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BC795D2841AAA9003587E8 /* MainView.swift */; };
 		94EB160D282E1B5D0099E47F /* FileUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EB160C282E1B5D0099E47F /* FileUploader.swift */; };
 		94EB160E282E1B5D0099E47F /* FileUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EB160C282E1B5D0099E47F /* FileUploader.swift */; };
 /* End PBXBuildFile section */
@@ -57,6 +59,7 @@
 		947D04CF282AF0BF00D83248 /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
 		94A5419C2832BD7800C6E440 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsView.swift; path = macOS/SettingsView.swift; sourceTree = SOURCE_ROOT; };
 		94A5419E2832F16400C6E440 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		94BC795D2841AAA9003587E8 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		94EB160C282E1B5D0099E47F /* FileUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUploader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -107,6 +110,7 @@
 				9414D4FC282AF2C700A5464D /* File-Cloud--macOS--Info.plist */,
 				947D04A8282AF0BE00D83248 /* Shared */,
 				947D04B7282AF0BF00D83248 /* macOS */,
+				94BC795C2841AA43003587E8 /* iOS */,
 				947D04C0282AF0BF00D83248 /* Tests iOS */,
 				947D04CC282AF0BF00D83248 /* Tests macOS */,
 				947D04B1282AF0BF00D83248 /* Products */,
@@ -162,6 +166,14 @@
 				947D04CF282AF0BF00D83248 /* Tests_macOSLaunchTests.swift */,
 			);
 			path = "Tests macOS";
+			sourceTree = "<group>";
+		};
+		94BC795C2841AA43003587E8 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				94BC795D2841AAA9003587E8 /* MainView.swift */,
+			);
+			path = iOS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -352,6 +364,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				947D04D1282AF0BF00D83248 /* File_CloudApp.swift in Sources */,
+				94BC795E2841AAA9003587E8 /* MainView.swift in Sources */,
 				94EB160D282E1B5D0099E47F /* FileUploader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -373,6 +386,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				947D04C4282AF0BF00D83248 /* Tests_iOSLaunchTests.swift in Sources */,
+				94BC795F2841AAB0003587E8 /* MainView.swift in Sources */,
 				947D04C2282AF0BF00D83248 /* Tests_iOS.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

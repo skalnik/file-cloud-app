@@ -22,9 +22,7 @@ struct File_CloudApp: App {
 #endif
 #if os(iOS)
         WindowGroup {
-            VStack {
-               Text("Hello World")
-            }
+            MainView()
         }
 #endif
     }
