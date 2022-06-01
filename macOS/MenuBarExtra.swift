@@ -109,7 +109,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate {
     }
     
     @objc func quit(_ sender: Any?) {
-        exit(0)
+        NSApp.terminate(self)
     }
     
     @objc func configure(_ sender: Any?) {
