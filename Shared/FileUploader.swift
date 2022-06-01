@@ -48,7 +48,7 @@ class FileUploader: NSObject {
         }
 
         if username?.count ?? 0 > 0 {
-            let loginString = "\(String(describing: username)):\(String(describing: password))"
+            let loginString = "\(String(describing: username!)):\(String(describing: password!))"
             let loginData = Data(loginString.utf8)
             let base64LoginString = loginData.base64EncodedString()
             request.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
