@@ -33,9 +33,11 @@ struct SettingsView: View {
             
             VStack(alignment: .leading) {
                 Toggle(isOn: $uploadOnEnter) {
-                    Text("Begin uploading upon drag enter")
-                    Image(systemName: "info.circle.fill")
-                        .help("Allows faster uploading, along with uploading from Dock Stacks, due to macOS Bug")
+                    HStack {
+                        Text("Begin uploading upon drag enter")
+                        Image(systemName: "info.circle.fill")
+                            .help("Allows faster uploading, along with uploading from Dock Stacks, due to macOS Bug")
+                    }
                 }
                 LaunchAtLogin.Toggle {
                     Text("Launch at login")

@@ -113,7 +113,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate {
     }
     
     @objc func configure(_ sender: Any?) {
-        NSApp.sendAction(Selector(("showPreferencesWindow:")), to: nil, from: nil)
+        NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
         NSApp.activate(ignoringOtherApps: true)
     }
     
