@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		9414D4FB282AF10100A5464D /* MenuBarExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9414D4FA282AF10100A5464D /* MenuBarExtra.swift */; };
 		941AACAC283972E900D94B48 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 941AACAB283972E900D94B48 /* LaunchAtLogin */; };
+		9420C567285511640099C8C8 /* UploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9420C566285511640099C8C8 /* UploadView.swift */; };
+		9420C568285511640099C8C8 /* UploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9420C566285511640099C8C8 /* UploadView.swift */; };
+		9420C56A2855184B0099C8C8 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9420C5692855184B0099C8C8 /* ImagePicker.swift */; };
+		9420C56B2855184B0099C8C8 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9420C5692855184B0099C8C8 /* ImagePicker.swift */; };
 		945BB8A5283828DF000E94D1 /* NSStatusBarButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945BB8A4283828DF000E94D1 /* NSStatusBarButtonExtension.swift */; };
 		947D04C2282AF0BF00D83248 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947D04C1282AF0BF00D83248 /* Tests_iOS.swift */; };
 		947D04C4282AF0BF00D83248 /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947D04C3282AF0BF00D83248 /* Tests_iOSLaunchTests.swift */; };
@@ -18,6 +22,8 @@
 		947D04D2282AF0BF00D83248 /* File_CloudApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947D04A9282AF0BE00D83248 /* File_CloudApp.swift */; };
 		947D04D5282AF0BF00D83248 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 947D04AB282AF0BF00D83248 /* Assets.xcassets */; };
 		947D04D6282AF0BF00D83248 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 947D04AB282AF0BF00D83248 /* Assets.xcassets */; };
+		948D130128550F38006BD99C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948D130028550F38006BD99C /* SettingsView.swift */; };
+		948D130228550F38006BD99C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948D130028550F38006BD99C /* SettingsView.swift */; };
 		94A5419D2832BD7800C6E440 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A5419C2832BD7800C6E440 /* SettingsView.swift */; };
 		94BC795E2841AAA9003587E8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BC795D2841AAA9003587E8 /* MainView.swift */; };
 		94BC795F2841AAB0003587E8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BC795D2841AAA9003587E8 /* MainView.swift */; };
@@ -45,6 +51,8 @@
 /* Begin PBXFileReference section */
 		9414D4FA282AF10100A5464D /* MenuBarExtra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarExtra.swift; sourceTree = "<group>"; };
 		9414D4FC282AF2C700A5464D /* File-Cloud--macOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "File-Cloud--macOS--Info.plist"; sourceTree = "<group>"; };
+		9420C566285511640099C8C8 /* UploadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadView.swift; sourceTree = "<group>"; };
+		9420C5692855184B0099C8C8 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		945BB8A4283828DF000E94D1 /* NSStatusBarButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSStatusBarButtonExtension.swift; sourceTree = "<group>"; };
 		947D04A9282AF0BE00D83248 /* File_CloudApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File_CloudApp.swift; sourceTree = "<group>"; };
 		947D04AB282AF0BF00D83248 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -57,6 +65,7 @@
 		947D04C9282AF0BF00D83248 /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		947D04CD282AF0BF00D83248 /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		947D04CF282AF0BF00D83248 /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
+		948D130028550F38006BD99C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		94A5419C2832BD7800C6E440 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsView.swift; path = macOS/SettingsView.swift; sourceTree = SOURCE_ROOT; };
 		94A5419E2832F16400C6E440 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		94BC795D2841AAA9003587E8 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -172,6 +181,9 @@
 			isa = PBXGroup;
 			children = (
 				94BC795D2841AAA9003587E8 /* MainView.swift */,
+				948D130028550F38006BD99C /* SettingsView.swift */,
+				9420C566285511640099C8C8 /* UploadView.swift */,
+				9420C5692855184B0099C8C8 /* ImagePicker.swift */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -263,7 +275,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1330;
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					947D04AF282AF0BF00D83248 = {
 						CreatedOnToolsVersion = 13.3.1;
@@ -363,7 +375,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9420C56A2855184B0099C8C8 /* ImagePicker.swift in Sources */,
 				947D04D1282AF0BF00D83248 /* File_CloudApp.swift in Sources */,
+				9420C567285511640099C8C8 /* UploadView.swift in Sources */,
+				948D130128550F38006BD99C /* SettingsView.swift in Sources */,
 				94BC795E2841AAA9003587E8 /* MainView.swift in Sources */,
 				94EB160D282E1B5D0099E47F /* FileUploader.swift in Sources */,
 			);
@@ -385,7 +400,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9420C56B2855184B0099C8C8 /* ImagePicker.swift in Sources */,
 				947D04C4282AF0BF00D83248 /* Tests_iOSLaunchTests.swift in Sources */,
+				9420C568285511640099C8C8 /* UploadView.swift in Sources */,
+				948D130228550F38006BD99C /* SettingsView.swift in Sources */,
 				94BC795F2841AAB0003587E8 /* MainView.swift in Sources */,
 				947D04C2282AF0BF00D83248 /* Tests_iOS.swift in Sources */,
 			);
@@ -449,6 +467,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -507,6 +526,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -594,9 +614,11 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
 				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 5R3XW76G52;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -626,9 +648,11 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
 				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 5R3XW76G52;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -697,6 +721,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 5R3XW76G52;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 12.3;
@@ -716,6 +741,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 5R3XW76G52;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 12.3;
