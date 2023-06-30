@@ -32,6 +32,7 @@ struct SettingsView: View {
             .tag(1)
             
             VStack(alignment: .leading) {
+                LaunchAtLogin.Toggle()
                 Toggle(isOn: $uploadOnEnter) {
                     HStack {
                         Text("Begin uploading upon drag enter")

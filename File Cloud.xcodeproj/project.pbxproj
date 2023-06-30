@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		9414D4FB282AF10100A5464D /* MenuBarExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9414D4FA282AF10100A5464D /* MenuBarExtra.swift */; };
-		941AACAC283972E900D94B48 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 941AACAB283972E900D94B48 /* LaunchAtLogin */; };
 		9420C567285511640099C8C8 /* UploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9420C566285511640099C8C8 /* UploadView.swift */; };
 		9420C568285511640099C8C8 /* UploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9420C566285511640099C8C8 /* UploadView.swift */; };
 		9420C56A2855184B0099C8C8 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9420C5692855184B0099C8C8 /* ImagePicker.swift */; };
@@ -25,6 +24,8 @@
 		948D130128550F38006BD99C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948D130028550F38006BD99C /* SettingsView.swift */; };
 		948D130228550F38006BD99C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948D130028550F38006BD99C /* SettingsView.swift */; };
 		94A5419D2832BD7800C6E440 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A5419C2832BD7800C6E440 /* SettingsView.swift */; };
+		94A93B372A4E597C0054D537 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 94A93B362A4E597C0054D537 /* LaunchAtLogin */; };
+		94A93B392A4E5A280054D537 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 94A93B382A4E5A280054D537 /* LaunchAtLogin */; };
 		94BC795E2841AAA9003587E8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BC795D2841AAA9003587E8 /* MainView.swift */; };
 		94BC795F2841AAB0003587E8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BC795D2841AAA9003587E8 /* MainView.swift */; };
 		94EB160D282E1B5D0099E47F /* FileUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EB160C282E1B5D0099E47F /* FileUploader.swift */; };
@@ -77,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94A93B372A4E597C0054D537 /* LaunchAtLogin in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,7 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				941AACAC283972E900D94B48 /* LaunchAtLogin in Frameworks */,
+				94A93B392A4E5A280054D537 /* LaunchAtLogin in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,6 +207,7 @@
 			);
 			name = "File Cloud (iOS)";
 			packageProductDependencies = (
+				94A93B362A4E597C0054D537 /* LaunchAtLogin */,
 			);
 			productName = "File Cloud (iOS)";
 			productReference = 947D04B0282AF0BF00D83248 /* File Cloud.app */;
@@ -217,7 +220,6 @@
 				947D04B2282AF0BF00D83248 /* Sources */,
 				947D04B3282AF0BF00D83248 /* Frameworks */,
 				947D04B4282AF0BF00D83248 /* Resources */,
-				941AACA92839723A00D94B48 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -225,7 +227,7 @@
 			);
 			name = "File Cloud (macOS)";
 			packageProductDependencies = (
-				941AACAB283972E900D94B48 /* LaunchAtLogin */,
+				94A93B382A4E5A280054D537 /* LaunchAtLogin */,
 			);
 			productName = "File Cloud (macOS)";
 			productReference = 947D04B6282AF0BF00D83248 /* File Cloud.app */;
@@ -303,7 +305,7 @@
 			);
 			mainGroup = 947D04A3282AF0BE00D83248;
 			packageReferences = (
-				941AACA6283971F800D94B48 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
+				94A93B352A4E597C0054D537 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */,
 			);
 			productRefGroup = 947D04B1282AF0BF00D83248 /* Products */;
 			projectDirPath = "";
@@ -349,26 +351,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		941AACA92839723A00D94B48 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILT_PRODUCTS_DIR}/LaunchAtLogin_LaunchAtLogin.bundle/Contents/Resources/copy-helper-swiftpm.sh\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		947D04AC282AF0BF00D83248 /* Sources */ = {
@@ -806,20 +788,25 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		941AACA6283971F800D94B48 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */ = {
+		94A93B352A4E597C0054D537 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin";
+			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin-Modern";
 			requirement = {
-				kind = exactVersion;
-				version = 4.2.0;
+				branch = main;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		941AACAB283972E900D94B48 /* LaunchAtLogin */ = {
+		94A93B362A4E597C0054D537 /* LaunchAtLogin */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 941AACA6283971F800D94B48 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
+			package = 94A93B352A4E597C0054D537 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */;
+			productName = LaunchAtLogin;
+		};
+		94A93B382A4E5A280054D537 /* LaunchAtLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 94A93B352A4E597C0054D537 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */;
 			productName = LaunchAtLogin;
 		};
 /* End XCSwiftPackageProductDependency section */
