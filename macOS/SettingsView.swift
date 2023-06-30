@@ -13,6 +13,7 @@ struct SettingsView: View {
     @AppStorage("username") var username: String = ""
     @AppStorage("password") var password: String = ""
     @AppStorage("uploadOnEnter") var uploadOnEnter: Bool = false
+    @AppStorage("directURL") var directURL: Bool = false
     @State var pane = 1
     
     var body: some View {
@@ -33,6 +34,9 @@ struct SettingsView: View {
             
             VStack(alignment: .leading) {
                 LaunchAtLogin.Toggle()
+                Toggle(isOn: $directURL) {
+                    Text("Copy direct URL")
+                }
                 Toggle(isOn: $uploadOnEnter) {
                     HStack {
                         Text("Begin uploading upon drag enter")
