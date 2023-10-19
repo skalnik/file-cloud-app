@@ -20,22 +20,10 @@ struct UploadView: View {
                 Text("Upload from Photos")
             }
             .modifier(BigButtonModifier())
-            
-            Button(action: {
-            }) {
-                Image(systemName: "doc")
-                Text("Upload from Files")
-            }.modifier(BigButtonModifier())
         }
         .sheet(isPresented: $showingPhotoLibrary) {
             ImagePicker(sourceType: .photoLibrary, selectedImage: self.$image)
         }
-    }
-}
-
-struct UploadView_Previews: PreviewProvider {
-    static var previews: some View {
-        UploadView()
     }
 }
 
@@ -48,5 +36,11 @@ struct BigButtonModifier: ViewModifier {
             .cornerRadius(20)
             .font(.title)
             .padding(.horizontal)
+    }
+}
+
+struct UploadView_Previews: PreviewProvider {
+    static var previews: some View {
+        UploadView()
     }
 }

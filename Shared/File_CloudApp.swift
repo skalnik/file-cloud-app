@@ -9,9 +9,9 @@ import SwiftUI
 
 @main
 struct File_CloudApp: App {
-    #if os(macOS)
+#if os(macOS)
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    #endif
+#endif
     
     
     var body: some Scene {
