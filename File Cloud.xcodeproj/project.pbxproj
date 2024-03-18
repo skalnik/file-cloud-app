@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9414D4FB282AF10100A5464D /* MenuBarExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9414D4FA282AF10100A5464D /* MenuBarExtra.swift */; };
+		9414D4FB282AF10100A5464D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9414D4FA282AF10100A5464D /* AppDelegate.swift */; };
 		9420C567285511640099C8C8 /* UploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9420C566285511640099C8C8 /* UploadView.swift */; };
 		9420C568285511640099C8C8 /* UploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9420C566285511640099C8C8 /* UploadView.swift */; };
 		9420C56A2855184B0099C8C8 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9420C5692855184B0099C8C8 /* ImagePicker.swift */; };
 		9420C56B2855184B0099C8C8 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9420C5692855184B0099C8C8 /* ImagePicker.swift */; };
+		943829A02BA7E872004CE41F /* MenuBarIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9438299F2BA7E872004CE41F /* MenuBarIcon.swift */; };
+		943829A32BA7E9AE004CE41F /* MenuBarExtraAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 943829A22BA7E9AE004CE41F /* MenuBarExtraAccess */; };
 		945BB8A5283828DF000E94D1 /* NSStatusBarButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945BB8A4283828DF000E94D1 /* NSStatusBarButtonExtension.swift */; };
 		947D04C2282AF0BF00D83248 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947D04C1282AF0BF00D83248 /* Tests_iOS.swift */; };
 		947D04C4282AF0BF00D83248 /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947D04C3282AF0BF00D83248 /* Tests_iOSLaunchTests.swift */; };
@@ -50,10 +52,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9414D4FA282AF10100A5464D /* MenuBarExtra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarExtra.swift; sourceTree = "<group>"; };
+		9414D4FA282AF10100A5464D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9414D4FC282AF2C700A5464D /* File-Cloud--macOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "File-Cloud--macOS--Info.plist"; sourceTree = "<group>"; };
 		9420C566285511640099C8C8 /* UploadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadView.swift; sourceTree = "<group>"; };
 		9420C5692855184B0099C8C8 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		9438299F2BA7E872004CE41F /* MenuBarIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBarIcon.swift; sourceTree = "<group>"; };
 		945BB8A4283828DF000E94D1 /* NSStatusBarButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSStatusBarButtonExtension.swift; sourceTree = "<group>"; };
 		947D04A9282AF0BE00D83248 /* File_CloudApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File_CloudApp.swift; sourceTree = "<group>"; };
 		947D04AB282AF0BF00D83248 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -86,6 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				943829A32BA7E9AE004CE41F /* MenuBarExtraAccess in Frameworks */,
 				94A93B392A4E5A280054D537 /* LaunchAtLogin in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -154,8 +158,9 @@
 			isa = PBXGroup;
 			children = (
 				94A5419C2832BD7800C6E440 /* SettingsView.swift */,
+				9438299F2BA7E872004CE41F /* MenuBarIcon.swift */,
 				947D04B8282AF0BF00D83248 /* macOS.entitlements */,
-				9414D4FA282AF10100A5464D /* MenuBarExtra.swift */,
+				9414D4FA282AF10100A5464D /* AppDelegate.swift */,
 				945BB8A4283828DF000E94D1 /* NSStatusBarButtonExtension.swift */,
 			);
 			path = macOS;
@@ -228,6 +233,7 @@
 			name = "File Cloud (macOS)";
 			packageProductDependencies = (
 				94A93B382A4E5A280054D537 /* LaunchAtLogin */,
+				943829A22BA7E9AE004CE41F /* MenuBarExtraAccess */,
 			);
 			productName = "File Cloud (macOS)";
 			productReference = 947D04B6282AF0BF00D83248 /* File Cloud.app */;
@@ -306,6 +312,7 @@
 			mainGroup = 947D04A3282AF0BE00D83248;
 			packageReferences = (
 				94A93B352A4E597C0054D537 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */,
+				943829A12BA7E8A9004CE41F /* XCRemoteSwiftPackageReference "MenuBarExtraAccess" */,
 			);
 			productRefGroup = 947D04B1282AF0BF00D83248 /* Products */;
 			projectDirPath = "";
@@ -371,9 +378,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				94EB160E282E1B5D0099E47F /* FileUploader.swift in Sources */,
+				943829A02BA7E872004CE41F /* MenuBarIcon.swift in Sources */,
 				94A5419D2832BD7800C6E440 /* SettingsView.swift in Sources */,
 				945BB8A5283828DF000E94D1 /* NSStatusBarButtonExtension.swift in Sources */,
-				9414D4FB282AF10100A5464D /* MenuBarExtra.swift in Sources */,
+				9414D4FB282AF10100A5464D /* AppDelegate.swift in Sources */,
 				947D04D2282AF0BF00D83248 /* File_CloudApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -796,6 +804,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		943829A12BA7E8A9004CE41F /* XCRemoteSwiftPackageReference "MenuBarExtraAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/orchetect/MenuBarExtraAccess";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.5;
+			};
+		};
 		94A93B352A4E597C0054D537 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin-Modern";
@@ -807,6 +823,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		943829A22BA7E9AE004CE41F /* MenuBarExtraAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 943829A12BA7E8A9004CE41F /* XCRemoteSwiftPackageReference "MenuBarExtraAccess" */;
+			productName = MenuBarExtraAccess;
+		};
 		94A93B362A4E597C0054D537 /* LaunchAtLogin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 94A93B352A4E597C0054D537 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */;

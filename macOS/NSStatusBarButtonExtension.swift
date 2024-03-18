@@ -1,10 +1,3 @@
-//
-//  NSStatusBarButtonExtension.swift
-//  File Cloud (macOS)
-//
-//  Created by Mike Skalnik on 5/20/22.
-//
-
 import AppKit
 
 extension NSStatusBarButton {

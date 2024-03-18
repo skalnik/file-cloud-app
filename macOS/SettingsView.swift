@@ -1,10 +1,3 @@
-//
-//  SettingsView.swift
-//  File Cloud (macOS)
-//
-//  Created by Mike Skalnik on 5/16/22.
-//
-
 import SwiftUI
 import LaunchAtLogin
 
