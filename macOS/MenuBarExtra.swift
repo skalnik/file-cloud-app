@@ -15,9 +15,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate {
     var uploadOnEnter: Bool!
     
     func applicationDidFinishLaunching(_ notification: Notification) {
-        let serverURL = URL(string: UserDefaults.standard.string(forKey: "serverURL")!)
-        
-        self.uploader = FileUploader.init(serverURL: serverURL!, username: UserDefaults.standard.string(forKey: "username")!, password: UserDefaults.standard.string(forKey: "password")!)
+        self.uploader = FileUploader.init(serverURL: UserDefaults.standard.url(forKey: "serverURL"),
+                                          username: UserDefaults.standard.string(forKey: "username"),
+                                          password: UserDefaults.standard.string(forKey: "password"))
         self.uploader.delegate = self
         
         self.uploadOnEnter = UserDefaults.standard.bool(forKey: "uploadOnEnter")
@@ -152,7 +152,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate {
     }
     
     @objc func updateSettings() {
-        self.uploader.serverURL = URL(string: UserDefaults.standard.string(forKey: "serverURL")!)
+        self.uploader.serverURL = UserDefaults.standard.url(forKey: "serverURL")
         self.uploader.username = UserDefaults.standard.string(forKey: "username")
         self.uploader.password = UserDefaults.standard.string(forKey: "password")
         self.uploadOnEnter = UserDefaults.standard.bool(forKey: "uploadOnEnter")
