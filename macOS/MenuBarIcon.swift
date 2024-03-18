@@ -23,7 +23,3 @@ struct MainMenu: View {
         Button("Quit") { NSApplication.shared.terminate(nil) }.keyboardShortcut("q", modifiers: .command)
     }
 }
-
-#Preview {
-    MainMenu()
-}
