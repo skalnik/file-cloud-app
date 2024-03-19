@@ -19,6 +19,7 @@ struct File_CloudApp: App {
         Settings {
             SettingsView()
         }
+        MenuBarIcon().environmentObject(appDelegate)
 #endif
 #if os(iOS)
         WindowGroup {

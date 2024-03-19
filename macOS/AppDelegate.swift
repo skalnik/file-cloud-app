@@ -1,36 +1,20 @@
-//
-//  MenuBarExtra.swift
-//  File Cloud (macOS)
-//
-//  Created by Mike Skalnik on 5/10/22.
-//
-
 import AppKit
 import UserNotifications
 
-class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate, ObservableObject {
     var statusBarItem: NSStatusItem!
     var uploader: FileUploader!
     var notifications: Bool!
     var uploadOnEnter: Bool!
+    @Published var icon: String! = "cloud.fill"
     
     func applicationDidFinishLaunching(_ notification: Notification) {
-        let serverURL = URL(string: UserDefaults.standard.string(forKey: "serverURL")!)
-        
-        self.uploader = FileUploader.init(serverURL: serverURL!, username: UserDefaults.standard.string(forKey: "username")!, password: UserDefaults.standard.string(forKey: "password")!)
+        self.uploader = FileUploader.init(serverURL: URL(string: UserDefaults.standard.string(forKey: "serverURL")!),
+                                          username: UserDefaults.standard.string(forKey: "username"),
+                                          password: UserDefaults.standard.string(forKey: "password"))
         self.uploader.delegate = self
-        
         self.uploadOnEnter = UserDefaults.standard.bool(forKey: "uploadOnEnter")
         
-        let statusBar = NSStatusBar.system
-        self.statusBarItem = statusBar.statusItem(withLength: NSStatusItem.squareLength)
-        
-        initImage()
-        statusBarItem.button?.registerForDraggedTypes([.fileURL])
-        statusBarItem.button?.target = self
-               
-        statusBarItem.menu = createMenu()
-
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { (granted, _) in
             self.notifications = granted
         }
@@ -38,36 +22,29 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(updateSettings), name: UserDefaults.didChangeNotification, object: nil)
     }
     
-    @objc func initImage() {
-        statusBarItem.button?.image = NSImage(systemSymbolName: "cloud.fill", accessibilityDescription: "File Cloud")
+    func setStatusBarItem(item: NSStatusItem!) {
+        self.statusBarItem = item
+        initStatusBar()
+    }
+    
+    func initStatusBar() {
+        statusBarItem.button?.registerForDraggedTypes([.fileURL])
+        statusBarItem.button?.target = self
     }
 
+    func defaultIcon() {
+        self.icon = "cloud.fill"
+    }
+    
     func delayedInit () {
         Timer.scheduledTimer(withTimeInterval: 2.5, repeats: false, block: {timer in
-            self.initImage()
+            self.defaultIcon()
         })
-    }
-
-    func createMenu() -> NSMenu {
-        let menu = NSMenu()
-        let title = NSMenuItem(title: "📂☁️ File Cloud", action: nil, keyEquivalent: "")
-        title.isEnabled = false
-        
-        menu.addItem(title)
-        menu.addItem(NSMenuItem.separator())
-        
-        let configureMenuItem = menu.addItem(withTitle: "Preferences…", action: #selector(configure), keyEquivalent: ",")
-        configureMenuItem.target = self
-        
-        let quitMenuItem = menu.addItem(withTitle: "Quit", action: #selector(quit), keyEquivalent: "q")
-        quitMenuItem.target = self
-        
-        return menu
     }
     
     func error(error: String) {
         DispatchQueue.main.sync {
-            statusBarItem.button?.image = NSImage(systemSymbolName: "xmark", accessibilityDescription: "Error!")
+            self.icon = "xmark"
             delayedInit()
         }
 
@@ -78,7 +55,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate {
     func uploaded(url: URL) {
         print("Uploaded")
         DispatchQueue.main.sync {
-            statusBarItem.button?.image = NSImage(systemSymbolName: "checkmark", accessibilityDescription: "Uploaded!")
+            self.icon = "checkmark"
             delayedInit()
         }
 
@@ -90,7 +67,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate {
     }
     
     func uploading() {
-        statusBarItem.button?.image = NSImage(systemSymbolName: "arrow.up", accessibilityDescription: "Uploading file")
+        self.icon = "arrow.up"
     }
 
     func displayNotification(title: String!, body: String!) {
@@ -108,20 +85,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate {
         center.add(request)
     }
     
-    @objc func quit(_ sender: Any?) {
-        NSApp.terminate(self)
-    }
-    
-    @objc func configure(_ sender: Any?) {
-        NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
-        NSApp.activate(ignoringOtherApps: true)
-    }
-    
     @objc func dragEntered(_ sender: NSDraggingInfo) {
         // Check everytime on drag enter in case it's changed
         self.uploadOnEnter = UserDefaults.standard.bool(forKey: "uploadOnEnter")
         
-        statusBarItem.button?.image? = NSImage(systemSymbolName: "cloud", accessibilityDescription: "Ready to upload")!
+        self.icon = "cloud"
         
         if uploadOnEnter {
             if let fileURL = NSURL.init(from: sender.draggingPasteboard)?.standardized {
@@ -147,7 +115,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate {
     
     @objc func dragExit(_ sender: Any? ) {
         if !uploadOnEnter {
-            initImage()
+            defaultIcon()
         }
     }
     
