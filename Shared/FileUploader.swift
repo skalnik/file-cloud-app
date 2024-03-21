@@ -47,12 +47,7 @@ class FileUploader: NSObject {
             return
         }
 
-        if username?.count ?? 0 > 0 {
-            let loginString = "\(String(describing: username!)):\(String(describing: password!))"
-            let loginData = Data(loginString.utf8)
-            let base64LoginString = loginData.base64EncodedString()
-            request.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
-        }
+        addAuthToRequest(request: &request)
         
         let boundary = UUID().uuidString
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
@@ -98,6 +93,15 @@ class FileUploader: NSObject {
         formData.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
         
         return formData
+    }
+    
+    func addAuthToRequest(request: inout URLRequest){
+        if username?.count ?? 0 > 0 {
+            let loginString = "\(String(describing: username!)):\(String(describing: password!))"
+            let loginData = Data(loginString.utf8)
+            let base64LoginString = loginData.base64EncodedString()
+            request.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
+        }
     }
     
     func mimeType(fileURL: URL) -> String? {
