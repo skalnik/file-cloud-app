@@ -1,34 +1,40 @@
-//
-//  UploadView.swift
-//  File Cloud
-//
-//  Created by Mike Skalnik on 6/11/22.
-//
-
 import SwiftUI
+import PhotosUI
 
 struct UploadView: View {
+    @EnvironmentObject private var uploader: Uploader
     @State private var showingPhotoLibrary = false
-    @State private var image = UIImage()
+    @State private var imageURL = URL(string: "http://example.com")!
+    @State private var selectedImage: PhotosPickerItem? = nil
+    @State private var image: UIImage? = nil
+    @State private var name: String? = nil
     
     var body: some View {
         VStack {
-            Button(action: {
-                self.showingPhotoLibrary = true
-            }) {
+            PhotosPicker(
+                selection: $selectedImage,
+                photoLibrary: .shared()
+                
+            ) {
                 Image(systemName: "photo")
                 Text("Upload from Photos")
             }
             .modifier(BigButtonModifier())
+            .onChange(of: selectedImage) {
+                Task {
+                    if let data = try? await selectedImage?.loadTransferable(type: Data.self) {
+                        image = UIImage(data: data)
+                        name = "lol randomly generated name"
+                        selectedImage = nil
+                    }
+                }
+            }
             
             Button(action: {
             }) {
                 Image(systemName: "doc")
                 Text("Upload from Files")
             }.modifier(BigButtonModifier())
-        }
-        .sheet(isPresented: $showingPhotoLibrary) {
-            ImagePicker(sourceType: .photoLibrary, selectedImage: self.$image)
         }
     }
 }

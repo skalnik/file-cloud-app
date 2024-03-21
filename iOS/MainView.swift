@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     @State private var selection: Tab = .upload
+    @EnvironmentObject private var uploader: Uploader
     
     enum Tab {
         case upload

@@ -12,11 +12,23 @@ struct SettingsView: View {
     @AppStorage("username") var username: String = ""
     @AppStorage("password") var password: String = ""
     
+    var allVars: [String] {[
+        serverURL,
+        username,
+        password
+    ]}
+    
     var body: some View {
         Form {
-            TextField("Server URL", text: $serverURL, prompt: Text("https://cloud.example.com"))
-            TextField("Username", text: $username)
-            SecureField("Password", text: $password)
+            ControlGroup {
+                TextField("Server URL", text: $serverURL, prompt: Text("https://cloud.example.com"))
+                    .disableAutocorrection(true)
+                    .keyboardType(.URL)
+                TextField("Username", text: $username).autocorrectionDisabled(true)
+                SecureField("Password", text: $password).autocorrectionDisabled(true)
+            }.onChange(of: allVars) {
+                uploader.reinit()
+            }
         }
     }
 }
