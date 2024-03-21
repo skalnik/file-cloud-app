@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @EnvironmentObject private var uploader: Uploader
     @AppStorage("serverURL") var serverURL: String = ""
     @AppStorage("username") var username: String = ""
     @AppStorage("password") var password: String = ""

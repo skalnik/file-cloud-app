@@ -43,7 +43,12 @@ class FileUploader: NSObject {
         var request = URLRequest(url: serverURL!)
         request.httpMethod = "POST"
         
-        guard let fileURL = fileURL else {
+        if (fileName == nil) {
+            delegate?.error(error: "No file name set")
+            return
+        }
+        if (data == nil) {
+            delegate?.error(error: "No data to upload")
             return
         }
 

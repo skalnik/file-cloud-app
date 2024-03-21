@@ -23,9 +23,16 @@ struct UploadView: View {
             .onChange(of: selectedImage) {
                 Task {
                     if let data = try? await selectedImage?.loadTransferable(type: Data.self) {
-                        image = UIImage(data: data)
-                        name = "lol randomly generated name"
-                        selectedImage = nil
+                        if let image = UIImage(data: data) {
+                            if let pngData = image.pngData() {
+                                print(pngData)
+                                let name = String(Date.timeIntervalSinceReferenceDate).replacingOccurrences(of: ".", with: "-") + ".png"
+                                uploader.uploader.data = pngData
+                                uploader.uploader.fileName = String(describing: name)
+                                uploader.uploader.mimeType = "image/png"
+                                uploader.uploader.upload()
+                            }
+                        }
                     }
                 }
             }
