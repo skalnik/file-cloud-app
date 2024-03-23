@@ -22,7 +22,7 @@ struct MainView: View {
     
     var body: some View {
         TabView(selection: $selection) {
-            UploadView()
+            UploadView(uploader: uploader)
                 .tabItem {
                     Label("Upload", systemImage: "arrow.up.doc")
                 }
@@ -38,6 +38,6 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView()
+        MainView().environmentObject(Uploader())
     }
 }

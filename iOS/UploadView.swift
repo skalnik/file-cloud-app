@@ -2,54 +2,57 @@ import SwiftUI
 import PhotosUI
 
 struct UploadView: View {
-    @EnvironmentObject private var uploader: Uploader
+    @ObservedObject var uploader: Uploader
     @State private var showingPhotoLibrary = false
     @State private var imageURL = URL(string: "http://example.com")!
     @State private var selectedImage: PhotosPickerItem? = nil
-    @State private var image: UIImage? = nil
-    @State private var name: String? = nil
     
     var body: some View {
-        VStack {
-            PhotosPicker(
-                selection: $selectedImage,
-                photoLibrary: .shared()
-                
-            ) {
-                Image(systemName: "photo")
-                Text("Upload from Photos")
-            }
-            .modifier(BigButtonModifier())
-            .onChange(of: selectedImage) {
-                Task {
-                    if let data = try? await selectedImage?.loadTransferable(type: Data.self) {
-                        if let image = UIImage(data: data) {
-                            if let pngData = image.pngData() {
-                                print(pngData)
-                                let name = String(Date.timeIntervalSinceReferenceDate).replacingOccurrences(of: ".", with: "-") + ".png"
-                                uploader.uploader.data = pngData
-                                uploader.uploader.fileName = String(describing: name)
-                                uploader.uploader.mimeType = "image/png"
-                                uploader.uploader.upload()
-                            }
+        ZStack {
+            VStack {
+                PhotosPicker(
+                    selection: $selectedImage,
+                    photoLibrary: .shared()
+                    
+                ) {
+                    Image(systemName: "photo")
+                    Text("Upload from Photos")
+                }
+                .modifier(BigButtonModifier())
+                .onChange(of: selectedImage) {
+                    Task {
+                        if let data = try? await selectedImage?.loadTransferable(type: Data.self) {
+                            selectedImage = nil
+                            guard let image = UIImage(data: data) else { return }
+                            guard let pngData = image.pngData() else { return }
+                            uploader.setFile(data: pngData)
                         }
                     }
                 }
+                
+                Button(action: {
+                }) {
+                    Image(systemName: "doc")
+                    Text("Upload from Files")
+                }.modifier(BigButtonModifier())
             }
             
-            Button(action: {
-            }) {
-                Image(systemName: "doc")
-                Text("Upload from Files")
-            }.modifier(BigButtonModifier())
+            switch uploader.state {
+            case .errored:
+                Toast(image: "xmark", message: uploader.error)
+            case .idle:
+                EmptyView()
+            case .uploading:
+                Toast(loading: true, message: "Uploading…")
+            case .uploaded:
+                Toast(image: "checkmark", message: "URL copied to clipboard!")
+            }
         }
     }
 }
 
-struct UploadView_Previews: PreviewProvider {
-    static var previews: some View {
-        UploadView()
-    }
+#Preview {
+    UploadView(uploader: Uploader())
 }
 
 struct BigButtonModifier: ViewModifier {
