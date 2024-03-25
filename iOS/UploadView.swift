@@ -38,8 +38,8 @@ struct UploadView: View {
             }
             
             switch uploader.state {
-            case .errored:
-                Toast(image: "xmark", message: uploader.error)
+            case .errored(let msg):
+                Toast(image: "xmark", message: msg)
             case .idle:
                 EmptyView()
             case .uploading:

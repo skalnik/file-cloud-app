@@ -3,7 +3,7 @@ import UIKit
 
 enum UploaderState {
     case idle
-    case errored
+    case errored(error: String)
     case uploading
     case uploaded
 }
@@ -23,8 +23,7 @@ class Uploader: UploadDelegate, ObservableObject {
     
     func error(error: String) {
         DispatchQueue.main.async {
-            self.state = .errored
-            self.error = error
+            self.state = .errored(error: error)
         }
         delayedIdle()
     }
