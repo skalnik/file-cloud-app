@@ -93,7 +93,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate, ObservableOb
         
         if uploadOnEnter {
             if let fileURL = NSURL.init(from: sender.draggingPasteboard)?.standardized {
-                uploader.fileURL = fileURL
+                uploader.setFromFileURL(fileURL: fileURL)
                 uploader.upload()
             }
         }
@@ -102,7 +102,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate, ObservableOb
     @objc func prepareDrag(_ sender: NSDraggingInfo) {
         if !uploadOnEnter {
             if let fileURL = NSURL.init(from: sender.draggingPasteboard)?.standardized {
-                uploader.fileURL = fileURL
+                uploader.setFromFileURL(fileURL: fileURL)
             }
         }
     }

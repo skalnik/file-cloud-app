@@ -12,6 +12,9 @@ struct File_CloudApp: App {
 #if os(macOS)
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 #endif
+#if os(iOS)
+    var uploader = Uploader()
+#endif
     
     
     var body: some Scene {
@@ -24,7 +27,7 @@ struct File_CloudApp: App {
 #if os(iOS)
         WindowGroup {
             MainView()
-        }
+        }.environmentObject(uploader)
 #endif
     }
 }
