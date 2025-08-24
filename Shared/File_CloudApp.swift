@@ -16,10 +16,10 @@ struct File_CloudApp: App {
     
     var body: some Scene {
 #if os(macOS)
+        MenuBarIcon().environmentObject(appDelegate)
         Settings {
             SettingsView()
         }
-        MenuBarIcon().environmentObject(appDelegate)
 #endif
 #if os(iOS)
         WindowGroup {
