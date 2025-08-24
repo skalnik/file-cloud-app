@@ -19,6 +19,7 @@ struct MenuBarIcon: Scene {
 
 struct MainMenu: View {
     var body: some View {
+        EmptyView().onAppear { }
         Text("📂☁️ File Cloud")
         Divider()
         SettingsLink()
@@ -32,7 +33,9 @@ struct SettingsWindowActivator: ViewModifier {
     func body(content: Content) -> some View {
         content
             .onAppear {
-                NSApp.activate(ignoringOtherApps: true)
+                if !NSApp.isActive {
+                    NSApp.activate(ignoringOtherApps: true) 
+                }
                 for window in NSApplication.shared.windows {
                     if window.title == "Settings" {
                         window.makeKeyAndOrderFront(nil)
