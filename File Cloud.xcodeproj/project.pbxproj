@@ -593,6 +593,8 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_FILE_ACCESS_DOWNLOADS_FOLDER = readonly;
@@ -611,8 +613,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.4;
-				MARKETING_VERSION = 1.0.1;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "skalnik.File-Cloud";
 				PRODUCT_NAME = "File Cloud";
 				SDKROOT = macosx;
@@ -632,6 +634,8 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_FILE_ACCESS_DOWNLOADS_FOLDER = readonly;
@@ -650,8 +654,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.4;
-				MARKETING_VERSION = 1.0.1;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "skalnik.File-Cloud";
 				PRODUCT_NAME = "File Cloud";
 				SDKROOT = macosx;
