@@ -12,6 +12,7 @@
 		9420C568285511640099C8C8 /* UploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9420C566285511640099C8C8 /* UploadView.swift */; };
 		9420C56A2855184B0099C8C8 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9420C5692855184B0099C8C8 /* ImagePicker.swift */; };
 		9420C56B2855184B0099C8C8 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9420C5692855184B0099C8C8 /* ImagePicker.swift */; };
+		94220B302EEFD6AE00DDB997 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 94220B2F2EEFD6AE00DDB997 /* Info.plist */; };
 		943829A02BA7E872004CE41F /* MenuBarIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9438299F2BA7E872004CE41F /* MenuBarIcon.swift */; };
 		943829A32BA7E9AE004CE41F /* MenuBarExtraAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 943829A22BA7E9AE004CE41F /* MenuBarExtraAccess */; };
 		945BB8A5283828DF000E94D1 /* NSStatusBarButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945BB8A4283828DF000E94D1 /* NSStatusBarButtonExtension.swift */; };
@@ -56,6 +57,8 @@
 		9414D4FC282AF2C700A5464D /* File-Cloud--macOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "File-Cloud--macOS--Info.plist"; sourceTree = "<group>"; };
 		9420C566285511640099C8C8 /* UploadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadView.swift; sourceTree = "<group>"; };
 		9420C5692855184B0099C8C8 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		94220B2E2EEFD6A800DDB997 /* File Cloud.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "File Cloud.entitlements"; sourceTree = "<group>"; };
+		94220B2F2EEFD6AE00DDB997 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9438299F2BA7E872004CE41F /* MenuBarIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBarIcon.swift; sourceTree = "<group>"; };
 		945BB8A4283828DF000E94D1 /* NSStatusBarButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSStatusBarButtonExtension.swift; sourceTree = "<group>"; };
 		947D04A9282AF0BE00D83248 /* File_CloudApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File_CloudApp.swift; sourceTree = "<group>"; };
@@ -154,6 +157,8 @@
 				947D04B8282AF0BF00D83248 /* macOS.entitlements */,
 				9414D4FA282AF10100A5464D /* AppDelegate.swift */,
 				945BB8A4283828DF000E94D1 /* NSStatusBarButtonExtension.swift */,
+				94220B2E2EEFD6A800DDB997 /* File Cloud.entitlements */,
+				94220B2F2EEFD6AE00DDB997 /* Info.plist */,
 			);
 			path = macOS;
 			sourceTree = "<group>";
@@ -324,6 +329,7 @@
 		947D04B4282AF0BF00D83248 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
+				94220B302EEFD6AE00DDB997 /* Info.plist in Resources */,
 				947D04D6282AF0BF00D83248 /* Assets.xcassets in Resources */,
 			);
 		};
@@ -593,7 +599,6 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 5;
 				CURRENT_PROJECT_VERSION = 6;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_APP_SANDBOX = YES;
@@ -634,7 +639,6 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 5;
 				CURRENT_PROJECT_VERSION = 6;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_APP_SANDBOX = YES;
