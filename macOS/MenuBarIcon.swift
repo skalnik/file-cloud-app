@@ -1,7 +1,5 @@
 import SwiftUI
 import MenuBarExtraAccess
-import AppKit
-import Combine
 
 struct MenuBarIcon: Scene {
     @State var isMenuPresented: Bool = false
@@ -17,30 +15,9 @@ struct MenuBarIcon: Scene {
 
 struct MainMenu: View {
     var body: some View {
-        EmptyView().onAppear { }
         Text("📂☁️ File Cloud")
         Divider()
-        SettingsLink()
-            .keyboardShortcut(",", modifiers: .command)
-            .modifier(SettingsWindowActivator())
+        SettingsLink().keyboardShortcut(",", modifiers: .command)
         Button("Quit") { NSApplication.shared.terminate(nil) }.keyboardShortcut("q", modifiers: .command)
-    }
-}
-
-struct SettingsWindowActivator: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .onAppear {
-                if !NSApp.isActive {
-                    NSApp.activate(ignoringOtherApps: true) 
-                }
-                for window in NSApplication.shared.windows {
-                    if window.title == "Settings" {
-                        window.makeKeyAndOrderFront(nil)
-                        return
-                    }
-                }
-                NSApp.sendAction(Selector(("showPreferencesWindow:")), to: nil, from: nil)
-            }
     }
 }

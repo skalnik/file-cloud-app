@@ -18,25 +18,27 @@ class FileUploader: NSObject {
     var serverURL: URL?
     var username: String?
     var password: String?
-    
+
     let urlSession: URLSession
-    
-    var fileURL: URL?
-    
+
+    var mimeType: String?
+    var fileName: String?
+    var data: Data?
+
     var delegate: UploadDelegate?
-    
+
     struct FileCloudResponse: Codable {
         var url: String
     }
-    
+
     init(serverURL: URL?, username: String?, password: String?) {
         self.serverURL = serverURL
         self.username = username
         self.password = password
-        
+
         self.urlSession = URLSession.shared
     }
-    
+
     func upload() {
         delegate?.uploading()
 
@@ -48,38 +50,35 @@ class FileUploader: NSObject {
         var request = URLRequest(url: serverURL)
         request.httpMethod = "POST"
 
-        guard let fileURL = fileURL else {
-            delegate?.error(error: "No file selected")
+        if (fileName == nil) {
+            delegate?.error(error: "No file name set")
+            return
+        }
+        if (data == nil) {
+            delegate?.error(error: "No data to upload")
             return
         }
 
-        if let username = username, !username.isEmpty,
-           let password = password {
-            let loginString = "\(username):\(password)"
-            let loginData = Data(loginString.utf8)
-            let base64LoginString = loginData.base64EncodedString()
-            request.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
-        }
-        
+        addAuthToRequest(request: &request)
+
         let boundary = UUID().uuidString
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        guard let formData = formData(boundary: boundary, fileURL: fileURL) else {
-            delegate?.error(error: "Could not read file data")
-            return
-        }
+        let formData = formData(boundary: boundary)
         request.setValue(String(formData.count), forHTTPHeaderField: "Content-Length")
 
         urlSession.uploadTask(with: request, from: formData, completionHandler: completionHandler).resume()
     }
-    
+
     func completionHandler(data: Data?, response: URLResponse?, error: Error?) -> Void {
-        self.fileURL = nil
+        self.fileName = nil
+        self.data = nil
+        self.mimeType = nil
 
         if error != nil {
-            delegate?.error(error:"Error took place \(String(describing: error))")
+            delegate?.error(error:"\(String(describing: error!.localizedDescription))")
             return
         }
-        
+
         guard let data = data else {
             delegate?.error(error: "No data from server")
             return
@@ -97,30 +96,35 @@ class FileUploader: NSObject {
             delegate?.error(error: jsonError.localizedDescription)
         }
     }
-    
-    func formData(boundary: String, fileURL: URL) -> Data? {
-        guard let fileData = try? Data(contentsOf: fileURL) else {
-            return nil
-        }
 
+    func formData(boundary: String) -> Data {
         var formData = Data()
-        let fileName = fileURL.lastPathComponent
 
-        formData.append("--\(boundary)\r\n".data(using: .utf8)!)
-        formData.append("Content-Disposition: form-data; name=\"file\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
-        if let mimeType = mimeType(fileURL: fileURL) {
-            formData.append("Content-Type: \(mimeType)\r\n".data(using: .utf8)!)
+        formData.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+        formData.append("Content-Disposition: form-data; name=\"file\"; filename=\"\(String(describing: fileName!))\"\r\n".data(using: .utf8)!)
+        if mimeType != nil && mimeType!.count > 0 {
+            formData.append("Content-Type: \(String(describing: mimeType!))\r\n\r\n".data(using: .utf8)!)
         }
-        formData.append("\r\n".data(using: .utf8)!)
-        formData.append(fileData)
+        formData.append(data!)
         formData.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
 
         return formData
     }
-    
-    func mimeType(fileURL: URL) -> String? {
+
+    func setFromFileURL(fileURL: URL) {
+        self.fileName = fileURL.lastPathComponent
+        self.data = try? Data(contentsOf: fileURL)
+
         let fileExtension = fileURL.pathExtension
-        
-        return UTTypeReference.init(filenameExtension: fileExtension)?.preferredMIMEType
+        self.mimeType = UTTypeReference.init(filenameExtension: fileExtension)?.preferredMIMEType
+    }
+
+    func addAuthToRequest(request: inout URLRequest) {
+        if username?.count ?? 0 > 0 {
+            let loginString = "\(String(describing: username!)):\(String(describing: password!))"
+            let loginData = Data(loginString.utf8)
+            let base64LoginString = loginData.base64EncodedString()
+            request.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
+        }
     }
 }
