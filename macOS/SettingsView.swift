@@ -4,10 +4,10 @@ import LaunchAtLogin
 struct SettingsView: View {
     @AppStorage("serverURL") var serverURL: String = ""
     @AppStorage("username") var username: String = ""
-    @AppStorage("password") var password: String = ""
     @AppStorage("uploadOnEnter") var uploadOnEnter: Bool = false
+    @State var password: String = ""
     @State var pane = 1
-    
+
     var body: some View {
         TabView(selection: $pane) {
             VStack {
@@ -38,7 +38,13 @@ struct SettingsView: View {
             }
             .padding()
             .tag(2)
-        }.frame(width:420)
+        }
+        .frame(width:420)
+        .onAppear { password = Keychain.read(account: "password") ?? "" }
+        .onChange(of: password) { _, newValue in
+            Keychain.save(account: "password", password: newValue)
+            NotificationCenter.default.post(name: UserDefaults.didChangeNotification, object: nil)
+        }
     }
 }
 

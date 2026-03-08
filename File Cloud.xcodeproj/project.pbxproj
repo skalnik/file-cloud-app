@@ -34,6 +34,8 @@
 		94BC795F2841AAB0003587E8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BC795D2841AAA9003587E8 /* MainView.swift */; };
 		94EB160D282E1B5D0099E47F /* FileUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EB160C282E1B5D0099E47F /* FileUploader.swift */; };
 		94EB160E282E1B5D0099E47F /* FileUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EB160C282E1B5D0099E47F /* FileUploader.swift */; };
+		94KC00012D0C000100000001 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94KC00002D0C000100000001 /* Keychain.swift */; };
+		94KC00022D0C000100000001 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94KC00002D0C000100000001 /* Keychain.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +81,7 @@
 		94A5419E2832F16400C6E440 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		94BC795D2841AAA9003587E8 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		94EB160C282E1B5D0099E47F /* FileUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUploader.swift; sourceTree = "<group>"; };
+		94KC00002D0C000100000001 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +139,7 @@
 				947D04A9282AF0BE00D83248 /* File_CloudApp.swift */,
 				947D04AB282AF0BF00D83248 /* Assets.xcassets */,
 				94EB160C282E1B5D0099E47F /* FileUploader.swift */,
+				94KC00002D0C000100000001 /* Keychain.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -356,6 +360,7 @@
 				948D130128550F38006BD99C /* SettingsView.swift in Sources */,
 				94BC795E2841AAA9003587E8 /* MainView.swift in Sources */,
 				94EB160D282E1B5D0099E47F /* FileUploader.swift in Sources */,
+				94KC00012D0C000100000001 /* Keychain.swift in Sources */,
 			);
 		};
 		947D04B2282AF0BF00D83248 /* Sources */ = {
@@ -367,6 +372,7 @@
 				945BB8A5283828DF000E94D1 /* NSStatusBarButtonExtension.swift in Sources */,
 				9414D4FB282AF10100A5464D /* AppDelegate.swift in Sources */,
 				947D04D2282AF0BF00D83248 /* File_CloudApp.swift in Sources */,
+				94KC00022D0C000100000001 /* Keychain.swift in Sources */,
 			);
 		};
 		947D04B9282AF0BF00D83248 /* Sources */ = {

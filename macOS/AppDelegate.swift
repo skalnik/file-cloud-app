@@ -8,10 +8,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate, ObservableOb
     @Published var icon: String = "cloud.fill"
     
     func applicationDidFinishLaunching(_ notification: Notification) {
+        // Migrate password from UserDefaults to Keychain
+        if let oldPassword = UserDefaults.standard.string(forKey: "password"), !oldPassword.isEmpty {
+            Keychain.save(account: "password", password: oldPassword)
+            UserDefaults.standard.removeObject(forKey: "password")
+        }
+
         let serverURLString = UserDefaults.standard.string(forKey: "serverURL")
         self.uploader = FileUploader(serverURL: serverURLString.flatMap { URL(string: $0) },
                                      username: UserDefaults.standard.string(forKey: "username"),
-                                     password: UserDefaults.standard.string(forKey: "password"))
+                                     password: Keychain.read(account: "password"))
         self.uploader?.delegate = self
         self.uploadOnEnter = UserDefaults.standard.bool(forKey: "uploadOnEnter")
         
@@ -116,7 +122,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate, ObservableOb
         let serverURLString = UserDefaults.standard.string(forKey: "serverURL")
         self.uploader?.serverURL = serverURLString.flatMap { URL(string: $0) }
         self.uploader?.username = UserDefaults.standard.string(forKey: "username")
-        self.uploader?.password = UserDefaults.standard.string(forKey: "password")
+        self.uploader?.password = Keychain.read(account: "password")
         self.uploadOnEnter = UserDefaults.standard.bool(forKey: "uploadOnEnter")
     }
 }
