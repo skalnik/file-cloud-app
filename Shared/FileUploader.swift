@@ -40,15 +40,22 @@ class FileUploader: NSObject {
     func upload() {
         delegate?.uploading()
 
-        var request = URLRequest(url: serverURL!)
-        request.httpMethod = "POST"
-        
-        guard let fileURL = fileURL else {
+        guard let serverURL = serverURL else {
+            delegate?.error(error: "Server URL is not configured")
             return
         }
 
-        if username?.count ?? 0 > 0 {
-            let loginString = "\(String(describing: username!)):\(String(describing: password!))"
+        var request = URLRequest(url: serverURL)
+        request.httpMethod = "POST"
+
+        guard let fileURL = fileURL else {
+            delegate?.error(error: "No file selected")
+            return
+        }
+
+        if let username = username, !username.isEmpty,
+           let password = password {
+            let loginString = "\(username):\(password)"
             let loginData = Data(loginString.utf8)
             let base64LoginString = loginData.base64EncodedString()
             request.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
@@ -56,9 +63,12 @@ class FileUploader: NSObject {
         
         let boundary = UUID().uuidString
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        let formData = formData(boundary: boundary, fileURL: fileURL)
+        guard let formData = formData(boundary: boundary, fileURL: fileURL) else {
+            delegate?.error(error: "Could not read file data")
+            return
+        }
         request.setValue(String(formData.count), forHTTPHeaderField: "Content-Length")
-        
+
         urlSession.uploadTask(with: request, from: formData, completionHandler: completionHandler).resume()
     }
     
@@ -76,27 +86,35 @@ class FileUploader: NSObject {
         }
 
         do {
-            let decodedResponse  = try JSONDecoder().decode(FileCloudResponse.self, from: data)
-            delegate?.uploaded(url: URL(string: "\(serverURL!)\(decodedResponse.url)")!)
+            let decodedResponse = try JSONDecoder().decode(FileCloudResponse.self, from: data)
+            guard let serverURL = serverURL else {
+                delegate?.error(error: "Server URL is not configured")
+                return
+            }
+            let uploadedURL = serverURL.appendingPathComponent(decodedResponse.url)
+            delegate?.uploaded(url: uploadedURL)
         } catch let jsonError {
             delegate?.error(error: jsonError.localizedDescription)
         }
     }
     
-    func formData(boundary: String, fileURL: URL) -> Data {
+    func formData(boundary: String, fileURL: URL) -> Data? {
+        guard let fileData = try? Data(contentsOf: fileURL) else {
+            return nil
+        }
+
         var formData = Data()
         let fileName = fileURL.lastPathComponent
-        let fileData = try? Data(contentsOf: fileURL)
-        
-        formData.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+
+        formData.append("--\(boundary)\r\n".data(using: .utf8)!)
         formData.append("Content-Disposition: form-data; name=\"file\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
-        let mimeType = mimeType(fileURL: fileURL)
-        if mimeType != nil {
-            formData.append("Content-Type: \(String(describing: mimeType!))\r\n\r\n".data(using: .utf8)!)
+        if let mimeType = mimeType(fileURL: fileURL) {
+            formData.append("Content-Type: \(mimeType)\r\n".data(using: .utf8)!)
         }
-        formData.append(fileData!)
+        formData.append("\r\n".data(using: .utf8)!)
+        formData.append(fileData)
         formData.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
-        
+
         return formData
     }
     

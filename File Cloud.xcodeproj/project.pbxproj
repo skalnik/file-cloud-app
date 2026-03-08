@@ -18,8 +18,9 @@
 		945BB8A5283828DF000E94D1 /* NSStatusBarButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945BB8A4283828DF000E94D1 /* NSStatusBarButtonExtension.swift */; };
 		947D04C2282AF0BF00D83248 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947D04C1282AF0BF00D83248 /* Tests_iOS.swift */; };
 		947D04C4282AF0BF00D83248 /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947D04C3282AF0BF00D83248 /* Tests_iOSLaunchTests.swift */; };
-		947D04CE282AF0BF00D83248 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947D04CD282AF0BF00D83248 /* Tests_macOS.swift */; };
-		947D04D0282AF0BF00D83248 /* Tests_macOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947D04CF282AF0BF00D83248 /* Tests_macOSLaunchTests.swift */; };
+
+
+		94CC1A0B2C8B3F0100ABCDEF /* FileUploaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CC1A0A2C8B3F0100ABCDEF /* FileUploaderTests.swift */; };
 		947D04D1282AF0BF00D83248 /* File_CloudApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947D04A9282AF0BE00D83248 /* File_CloudApp.swift */; };
 		947D04D2282AF0BF00D83248 /* File_CloudApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947D04A9282AF0BE00D83248 /* File_CloudApp.swift */; };
 		947D04D5282AF0BF00D83248 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 947D04AB282AF0BF00D83248 /* Assets.xcassets */; };
@@ -70,8 +71,9 @@
 		947D04C1282AF0BF00D83248 /* Tests_iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOS.swift; sourceTree = "<group>"; };
 		947D04C3282AF0BF00D83248 /* Tests_iOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOSLaunchTests.swift; sourceTree = "<group>"; };
 		947D04C9282AF0BF00D83248 /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		947D04CD282AF0BF00D83248 /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
-		947D04CF282AF0BF00D83248 /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
+
+
+		94CC1A0A2C8B3F0100ABCDEF /* FileUploaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUploaderTests.swift; sourceTree = "<group>"; };
 		948D130028550F38006BD99C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		94A5419C2832BD7800C6E440 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsView.swift; path = macOS/SettingsView.swift; sourceTree = SOURCE_ROOT; };
 		94A5419E2832F16400C6E440 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -175,8 +177,7 @@
 		947D04CC282AF0BF00D83248 /* Tests macOS */ = {
 			isa = PBXGroup;
 			children = (
-				947D04CD282AF0BF00D83248 /* Tests_macOS.swift */,
-				947D04CF282AF0BF00D83248 /* Tests_macOSLaunchTests.swift */,
+				94CC1A0A2C8B3F0100ABCDEF /* FileUploaderTests.swift */,
 			);
 			path = "Tests macOS";
 			sourceTree = "<group>";
@@ -266,7 +267,7 @@
 			name = "Tests macOS";
 			productName = "Tests macOS";
 			productReference = 947D04C9282AF0BF00D83248 /* Tests macOS.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -382,8 +383,7 @@
 		947D04C5282AF0BF00D83248 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			files = (
-				947D04D0282AF0BF00D83248 /* Tests_macOSLaunchTests.swift in Sources */,
-				947D04CE282AF0BF00D83248 /* Tests_macOS.swift in Sources */,
+				94CC1A0B2C8B3F0100ABCDEF /* FileUploaderTests.swift in Sources */,
 			);
 		};
 /* End PBXSourcesBuildPhase section */
@@ -535,7 +535,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 19.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -568,7 +568,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 19.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -674,7 +674,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 19.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "skalnik.Tests-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -692,7 +692,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 19.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "skalnik.Tests-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -708,17 +708,19 @@
 		947D04E3282AF0BF00D83248 /* Debug configuration for PBXNativeTarget "Tests macOS" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "skalnik.Tests-macOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/File Cloud.app/Contents/MacOS/File Cloud";
 				TEST_TARGET_NAME = "File Cloud (macOS)";
 			};
 			name = Debug;
@@ -726,17 +728,19 @@
 		947D04E4282AF0BF00D83248 /* Release configuration for PBXNativeTarget "Tests macOS" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "skalnik.Tests-macOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/File Cloud.app/Contents/MacOS/File Cloud";
 				TEST_TARGET_NAME = "File Cloud (macOS)";
 			};
 			name = Release;
