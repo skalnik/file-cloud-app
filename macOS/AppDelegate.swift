@@ -2,7 +2,6 @@ import AppKit
 import UserNotifications
 
 class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate, ObservableObject {
-    var statusBarItem: NSStatusItem?
     var uploader: FileUploader?
     var notifications: Bool = false
     var uploadOnEnter: Bool = false
@@ -23,16 +22,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate, ObservableOb
         NotificationCenter.default.addObserver(self, selector: #selector(updateSettings), name: UserDefaults.didChangeNotification, object: nil)
     }
     
-    func setStatusBarItem(item: NSStatusItem) {
-        self.statusBarItem = item
-        initStatusBar()
-    }
-
-    func initStatusBar() {
-        statusBarItem?.button?.registerForDraggedTypes([.fileURL])
-        statusBarItem?.button?.target = self
-    }
-
     func defaultIcon() {
         self.icon = "cloud.fill"
     }

@@ -1,6 +1,13 @@
 import AppKit
 
 extension NSStatusBarButton {
+    open override func viewDidMoveToWindow() {
+        super.viewDidMoveToWindow()
+        if window != nil {
+            registerForDraggedTypes([.fileURL])
+        }
+    }
+
     open override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
         NSApp.sendAction(#selector(AppDelegate.dragEntered(_:)), to: nil, from: sender)
         
