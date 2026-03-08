@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "947D04B5282AF0BF00D83248"
+               BlueprintIdentifier = "947D04AF282AF0BF00D83248"
                BuildableName = "File Cloud.app"
-               BlueprintName = "File Cloud (macOS)"
+               BlueprintName = "File Cloud (iOS)"
                ReferencedContainer = "container:File Cloud.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,9 +28,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "947D04C8282AF0BF00D83248"
-               BuildableName = "Tests macOS.xctest"
-               BlueprintName = "Tests macOS"
+               BlueprintIdentifier = "947D04BC282AF0BF00D83248"
+               BuildableName = "Tests iOS.xctest"
+               BlueprintName = "Tests iOS"
                ReferencedContainer = "container:File Cloud.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,9 +46,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "947D04C8282AF0BF00D83248"
-               BuildableName = "Tests macOS.xctest"
-               BlueprintName = "Tests macOS"
+               BlueprintIdentifier = "947D04BC282AF0BF00D83248"
+               BuildableName = "Tests iOS.xctest"
+               BlueprintName = "Tests iOS"
                ReferencedContainer = "container:File Cloud.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -68,9 +68,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "947D04B5282AF0BF00D83248"
+            BlueprintIdentifier = "947D04AF282AF0BF00D83248"
             BuildableName = "File Cloud.app"
-            BlueprintName = "File Cloud (macOS)"
+            BlueprintName = "File Cloud (iOS)"
             ReferencedContainer = "container:File Cloud.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -84,9 +84,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "947D04B5282AF0BF00D83248"
+            BlueprintIdentifier = "947D04AF282AF0BF00D83248"
             BuildableName = "File Cloud.app"
-            BlueprintName = "File Cloud (macOS)"
+            BlueprintName = "File Cloud (iOS)"
             ReferencedContainer = "container:File Cloud.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
