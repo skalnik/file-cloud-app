@@ -16,31 +16,25 @@ struct MenuBarIcon: Scene {
 }
 
 struct MainMenu: View {
+    @Environment(\.openSettings) private var openSettings
+
     var body: some View {
         EmptyView().onAppear { }
         Text("📂☁️ File Cloud")
         Divider()
-        SettingsLink()
-            .keyboardShortcut(",", modifiers: .command)
-            .modifier(SettingsWindowActivator())
-        Button("Quit") { NSApplication.shared.terminate(nil) }.keyboardShortcut("q", modifiers: .command)
-    }
-}
-
-struct SettingsWindowActivator: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .onAppear {
-                if !NSApp.isActive {
-                    NSApp.activate(ignoringOtherApps: true) 
+        Button("Settings") {
+            openSettings()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                NSApp.activate()
+                if let settingsWindow = NSApplication.shared.windows
+                    .first(where: { $0.title == "Settings" }) {
+                    settingsWindow.level = .modalPanel
+                    settingsWindow.makeKeyAndOrderFront(nil)
+                    settingsWindow.level = .normal
                 }
-                for window in NSApplication.shared.windows {
-                    if window.title == "Settings" {
-                        window.makeKeyAndOrderFront(nil)
-                        return
-                    }
-                }
-                NSApp.sendAction(Selector(("showPreferencesWindow:")), to: nil, from: nil)
             }
+        }
+        .keyboardShortcut(",", modifiers: .command)
+        Button("Quit") { NSApplication.shared.terminate(nil) }.keyboardShortcut("q", modifiers: .command)
     }
 }
