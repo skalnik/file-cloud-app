@@ -12,19 +12,22 @@ struct File_CloudApp: App {
 #if os(macOS)
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 #endif
+#if os(iOS)
+    var uploader = Uploader()
+#endif
     
     
     var body: some Scene {
 #if os(macOS)
-        MenuBarIcon().environmentObject(appDelegate)
         Settings {
             SettingsView()
         }
+        MenuBarIcon().environmentObject(appDelegate)
 #endif
 #if os(iOS)
         WindowGroup {
             MainView()
-        }
+        }.environmentObject(uploader)
 #endif
     }
 }
