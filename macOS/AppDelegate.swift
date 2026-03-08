@@ -44,9 +44,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate, ObservableOb
     }
     
     func error(error: String) {
-        DispatchQueue.main.sync {
+        DispatchQueue.main.async {
             self.icon = "xmark"
-            delayedInit()
+            self.delayedInit()
         }
 
         displayNotification(title: "File Cloud Error", body: error)
@@ -55,9 +55,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate, ObservableOb
     
     func uploaded(url: URL) {
         print("Uploaded")
-        DispatchQueue.main.sync {
+        DispatchQueue.main.async {
             self.icon = "checkmark"
-            delayedInit()
+            self.delayedInit()
         }
 
         let pasteboard = NSPasteboard.general
