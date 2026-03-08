@@ -2,17 +2,18 @@ import AppKit
 import UserNotifications
 
 class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate, ObservableObject {
-    var statusBarItem: NSStatusItem!
-    var uploader: FileUploader!
-    var notifications: Bool!
-    var uploadOnEnter: Bool!
-    @Published var icon: String! = "cloud.fill"
+    var statusBarItem: NSStatusItem?
+    var uploader: FileUploader?
+    var notifications: Bool = false
+    var uploadOnEnter: Bool = false
+    @Published var icon: String = "cloud.fill"
     
     func applicationDidFinishLaunching(_ notification: Notification) {
-        self.uploader = FileUploader.init(serverURL: URL(string: UserDefaults.standard.string(forKey: "serverURL")!),
-                                          username: UserDefaults.standard.string(forKey: "username"),
-                                          password: UserDefaults.standard.string(forKey: "password"))
-        self.uploader.delegate = self
+        let serverURLString = UserDefaults.standard.string(forKey: "serverURL")
+        self.uploader = FileUploader(serverURL: serverURLString.flatMap { URL(string: $0) },
+                                     username: UserDefaults.standard.string(forKey: "username"),
+                                     password: UserDefaults.standard.string(forKey: "password"))
+        self.uploader?.delegate = self
         self.uploadOnEnter = UserDefaults.standard.bool(forKey: "uploadOnEnter")
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { (granted, _) in
@@ -22,14 +23,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate, ObservableOb
         NotificationCenter.default.addObserver(self, selector: #selector(updateSettings), name: UserDefaults.didChangeNotification, object: nil)
     }
     
-    func setStatusBarItem(item: NSStatusItem!) {
+    func setStatusBarItem(item: NSStatusItem) {
         self.statusBarItem = item
         initStatusBar()
     }
-    
+
     func initStatusBar() {
-        statusBarItem.button?.registerForDraggedTypes([.fileURL])
-        statusBarItem.button?.target = self
+        statusBarItem?.button?.registerForDraggedTypes([.fileURL])
+        statusBarItem?.button?.target = self
     }
 
     func defaultIcon() {
@@ -70,7 +71,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate, ObservableOb
         self.icon = "arrow.up"
     }
 
-    func displayNotification(title: String!, body: String!) {
+    func displayNotification(title: String, body: String) {
         if !notifications {
             return
         }
@@ -93,8 +94,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate, ObservableOb
         
         if uploadOnEnter {
             if let fileURL = NSURL.init(from: sender.draggingPasteboard)?.standardized {
-                uploader.fileURL = fileURL
-                uploader.upload()
+                uploader?.fileURL = fileURL
+                uploader?.upload()
             }
         }
     }
@@ -102,14 +103,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate, ObservableOb
     @objc func prepareDrag(_ sender: NSDraggingInfo) {
         if !uploadOnEnter {
             if let fileURL = NSURL.init(from: sender.draggingPasteboard)?.standardized {
-                uploader.fileURL = fileURL
+                uploader?.fileURL = fileURL
             }
         }
     }
-    
+
     @objc func performDrag(_ sender: Any?) {
         if !uploadOnEnter {
-            uploader.upload()
+            uploader?.upload()
         }
     }
     
@@ -120,9 +121,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate, ObservableOb
     }
     
     @objc func updateSettings() {
-        self.uploader.serverURL = URL(string: UserDefaults.standard.string(forKey: "serverURL")!)
-        self.uploader.username = UserDefaults.standard.string(forKey: "username")
-        self.uploader.password = UserDefaults.standard.string(forKey: "password")
+        let serverURLString = UserDefaults.standard.string(forKey: "serverURL")
+        self.uploader?.serverURL = serverURLString.flatMap { URL(string: $0) }
+        self.uploader?.username = UserDefaults.standard.string(forKey: "username")
+        self.uploader?.password = UserDefaults.standard.string(forKey: "password")
         self.uploadOnEnter = UserDefaults.standard.bool(forKey: "uploadOnEnter")
     }
 }
