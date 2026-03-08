@@ -98,6 +98,26 @@ class FileUploaderTests: XCTestCase {
         XCTAssertEqual(expected, "dXNlcjpwYXNz")
     }
 
+    func testKeychainRoundTrip() {
+        let account = "test-keychain-round-trip"
+
+        // Clean slate
+        Keychain.delete(account: account)
+        XCTAssertNil(Keychain.read(account: account))
+
+        // Save and read
+        Keychain.save(account: account, password: "s3cret")
+        XCTAssertEqual(Keychain.read(account: account), "s3cret")
+
+        // Overwrite
+        Keychain.save(account: account, password: "updated")
+        XCTAssertEqual(Keychain.read(account: account), "updated")
+
+        // Delete
+        Keychain.delete(account: account)
+        XCTAssertNil(Keychain.read(account: account))
+    }
+
     func testFormDataWithNonexistentFile() {
         let fakeFile = URL(fileURLWithPath: "/nonexistent/file.txt")
         let formData = uploader.formData(boundary: "boundary", fileURL: fakeFile)
