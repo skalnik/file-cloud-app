@@ -12,7 +12,7 @@ struct MenuBarIcon: Scene {
             MainMenu()
         }.menuBarExtraStyle(.menu)
         .menuBarExtraAccess(isPresented: $isMenuPresented) { statusItem in
-            AppDelegate().setStatusBarItem(item: statusItem)
+            (NSApp.delegate as? AppDelegate)?.setStatusBarItem(item: statusItem)
        }
     }
 }
