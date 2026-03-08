@@ -37,8 +37,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate, ObservableOb
         self.icon = "cloud.fill"
     }
     
-    func delayedInit () {
-        Timer.scheduledTimer(withTimeInterval: 2.5, repeats: false, block: {timer in
+    var resetTimer: Timer?
+
+    func resetIconAfterDelay() {
+        resetTimer?.invalidate()
+        resetTimer = Timer.scheduledTimer(withTimeInterval: 2.5, repeats: false, block: { _ in
             self.defaultIcon()
         })
     }
@@ -46,7 +49,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate, ObservableOb
     func error(error: String) {
         DispatchQueue.main.async {
             self.icon = "xmark"
-            self.delayedInit()
+            self.resetIconAfterDelay()
         }
 
         displayNotification(title: "File Cloud Error", body: error)
@@ -57,7 +60,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate, ObservableOb
         print("Uploaded")
         DispatchQueue.main.async {
             self.icon = "checkmark"
-            self.delayedInit()
+            self.resetIconAfterDelay()
         }
 
         let pasteboard = NSPasteboard.general
