@@ -11,9 +11,7 @@ struct MenuBarIcon: Scene {
         MenuBarExtra("File Cloud", systemImage: $appDelegate.icon.wrappedValue) {
             MainMenu()
         }.menuBarExtraStyle(.menu)
-        .menuBarExtraAccess(isPresented: $isMenuPresented) { statusItem in
-            (NSApp.delegate as? AppDelegate)?.setStatusBarItem(item: statusItem)
-       }
+        .menuBarExtraAccess(isPresented: $isMenuPresented)
     }
 }
 
