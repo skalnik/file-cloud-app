@@ -10,8 +10,7 @@
 		9414D4FB282AF10100A5464D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9414D4FA282AF10100A5464D /* AppDelegate.swift */; };
 		9420C567285511640099C8C8 /* UploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9420C566285511640099C8C8 /* UploadView.swift */; };
 		9420C568285511640099C8C8 /* UploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9420C566285511640099C8C8 /* UploadView.swift */; };
-		9420C56A2855184B0099C8C8 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9420C5692855184B0099C8C8 /* ImagePicker.swift */; };
-		9420C56B2855184B0099C8C8 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9420C5692855184B0099C8C8 /* ImagePicker.swift */; };
+
 		94220B302EEFD6AE00DDB997 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 94220B2F2EEFD6AE00DDB997 /* Info.plist */; };
 		943829A02BA7E872004CE41F /* MenuBarIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9438299F2BA7E872004CE41F /* MenuBarIcon.swift */; };
 		943829A32BA7E9AE004CE41F /* MenuBarExtraAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 943829A22BA7E9AE004CE41F /* MenuBarExtraAccess */; };
@@ -36,6 +35,16 @@
 		94EB160E282E1B5D0099E47F /* FileUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EB160C282E1B5D0099E47F /* FileUploader.swift */; };
 		94KC00012D0C000100000001 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94KC00002D0C000100000001 /* Keychain.swift */; };
 		94KC00022D0C000100000001 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94KC00002D0C000100000001 /* Keychain.swift */; };
+		94KC00032D0C000100000001 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94KC00002D0C000100000001 /* Keychain.swift */; };
+		94SE00012D0C000100000001 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94SE00002D0C000100000001 /* Settings.swift */; };
+		94SE00022D0C000100000001 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94SE00002D0C000100000001 /* Settings.swift */; };
+		94FA00012D0C000100000001 /* FileUploaderAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FA00002D0C000100000001 /* FileUploaderAsync.swift */; };
+		94FA00022D0C000100000001 /* FileUploaderAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FA00002D0C000100000001 /* FileUploaderAsync.swift */; };
+		94PP00012D0C000100000001 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94PP00002D0C000100000001 /* PhotoPicker.swift */; };
+		94DP00012D0C000100000001 /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DP00002D0C000100000001 /* DocumentPicker.swift */; };
+		94SV00012D0C000100000001 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94SV00002D0C000100000001 /* ShareViewController.swift */; };
+		94FU00012D0C000100000001 /* FileUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EB160C282E1B5D0099E47F /* FileUploader.swift */; };
+		94SE00112D0C000100000001 /* Share Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 94SE00102D0C000100000001 /* Share Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,13 +62,20 @@
 			remoteGlobalIDString = 947D04B5282AF0BF00D83248;
 			remoteInfo = "File Cloud (macOS)";
 		};
+		94CP00002D0C000100000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 947D04A4282AF0BE00D83248 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 94SH00002D0C000100000001;
+			remoteInfo = "Share Extension";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		9414D4FA282AF10100A5464D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9414D4FC282AF2C700A5464D /* File-Cloud--macOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "File-Cloud--macOS--Info.plist"; sourceTree = "<group>"; };
 		9420C566285511640099C8C8 /* UploadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadView.swift; sourceTree = "<group>"; };
-		9420C5692855184B0099C8C8 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+
 		94220B2E2EEFD6A800DDB997 /* File Cloud.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "File Cloud.entitlements"; sourceTree = "<group>"; };
 		94220B2F2EEFD6AE00DDB997 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9438299F2BA7E872004CE41F /* MenuBarIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBarIcon.swift; sourceTree = "<group>"; };
@@ -82,13 +98,21 @@
 		94BC795D2841AAA9003587E8 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		94EB160C282E1B5D0099E47F /* FileUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUploader.swift; sourceTree = "<group>"; };
 		94KC00002D0C000100000001 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
+		94SE00002D0C000100000001 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		94FA00002D0C000100000001 /* FileUploaderAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUploaderAsync.swift; sourceTree = "<group>"; };
+		94PP00002D0C000100000001 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
+		94DP00002D0C000100000001 /* DocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
+		94IE00002D0C000100000001 /* iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOS.entitlements; sourceTree = "<group>"; };
+		94SV00002D0C000100000001 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		94XE00002D0C000100000001 /* Share Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Share Extension.entitlements"; sourceTree = "<group>"; };
+		94SE00102D0C000100000001 /* Share Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Share Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		94IP00002D0C000100000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		947D04AD282AF0BF00D83248 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
-				94A93B372A4E597C0054D537 /* LaunchAtLogin in Frameworks */,
 			);
 		};
 		947D04B3282AF0BF00D83248 /* Frameworks */ = {
@@ -104,6 +128,11 @@
 			);
 		};
 		947D04C6282AF0BF00D83248 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+		94SH00022D0C000100000001 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
 			);
@@ -128,6 +157,7 @@
 				94BC795C2841AA43003587E8 /* iOS */,
 				947D04C0282AF0BF00D83248 /* Tests iOS */,
 				947D04CC282AF0BF00D83248 /* Tests macOS */,
+				94SG00002D0C000100000001 /* Share Extension */,
 				947D04B1282AF0BF00D83248 /* Products */,
 				941AACAA283972E900D94B48 /* Frameworks */,
 			);
@@ -139,7 +169,9 @@
 				947D04A9282AF0BE00D83248 /* File_CloudApp.swift */,
 				947D04AB282AF0BF00D83248 /* Assets.xcassets */,
 				94EB160C282E1B5D0099E47F /* FileUploader.swift */,
+				94FA00002D0C000100000001 /* FileUploaderAsync.swift */,
 				94KC00002D0C000100000001 /* Keychain.swift */,
+				94SE00002D0C000100000001 /* Settings.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -151,6 +183,7 @@
 				947D04B6282AF0BF00D83248 /* File Cloud.app */,
 				947D04BD282AF0BF00D83248 /* Tests iOS.xctest */,
 				947D04C9282AF0BF00D83248 /* Tests macOS.xctest */,
+				94SE00102D0C000100000001 /* Share Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -189,12 +222,24 @@
 		94BC795C2841AA43003587E8 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				94IE00002D0C000100000001 /* iOS.entitlements */,
 				94BC795D2841AAA9003587E8 /* MainView.swift */,
 				948D130028550F38006BD99C /* SettingsView.swift */,
 				9420C566285511640099C8C8 /* UploadView.swift */,
-				9420C5692855184B0099C8C8 /* ImagePicker.swift */,
+				94PP00002D0C000100000001 /* PhotoPicker.swift */,
+				94DP00002D0C000100000001 /* DocumentPicker.swift */,
 			);
 			path = iOS;
+			sourceTree = "<group>";
+		};
+		94SG00002D0C000100000001 /* Share Extension */ = {
+			isa = PBXGroup;
+			children = (
+				94SV00002D0C000100000001 /* ShareViewController.swift */,
+				94XE00002D0C000100000001 /* Share Extension.entitlements */,
+				94IP00002D0C000100000001 /* Info.plist */,
+			);
+			path = "Share Extension";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,13 +252,14 @@
 				947D04AC282AF0BF00D83248 /* Sources */,
 				947D04AD282AF0BF00D83248 /* Frameworks */,
 				947D04AE282AF0BF00D83248 /* Resources */,
+				94EM00002D0C000100000001 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
-			name = "File Cloud (iOS)";
-			packageProductDependencies = (
-				94A93B362A4E597C0054D537 /* LaunchAtLogin */,
+			dependencies = (
+				94TD00002D0C000100000001 /* PBXTargetDependency */,
 			);
+			name = "File Cloud (iOS)";
 			productName = "File Cloud (iOS)";
 			productReference = 947D04B0282AF0BF00D83248 /* File Cloud.app */;
 			productType = "com.apple.product-type.application";
@@ -273,6 +319,21 @@
 			productReference = 947D04C9282AF0BF00D83248 /* Tests macOS.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		94SH00002D0C000100000001 /* Share Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 94SH00062D0C000100000001 /* Build configuration list for PBXNativeTarget "Share Extension" */;
+			buildPhases = (
+				94SH00012D0C000100000001 /* Sources */,
+				94SH00022D0C000100000001 /* Frameworks */,
+				94SH00032D0C000100000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			name = "Share Extension";
+			productName = "Share Extension";
+			productReference = 94SE00102D0C000100000001 /* Share Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -297,6 +358,9 @@
 						CreatedOnToolsVersion = 13.3.1;
 						TestTargetID = 947D04B5282AF0BF00D83248;
 					};
+					94SH00002D0C000100000001 = {
+						CreatedOnToolsVersion = 16.0;
+					};
 				};
 			};
 			buildConfigurationList = 947D04A7282AF0BE00D83248 /* Build configuration list for PBXProject "File Cloud" */;
@@ -320,6 +384,7 @@
 				947D04B5282AF0BF00D83248 /* File Cloud (macOS) */,
 				947D04BC282AF0BF00D83248 /* Tests iOS */,
 				947D04C8282AF0BF00D83248 /* Tests macOS */,
+				94SH00002D0C000100000001 /* Share Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -348,19 +413,41 @@
 			files = (
 			);
 		};
+		94SH00032D0C000100000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+			);
+		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		94EM00002D0C000100000001 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				94SE00112D0C000100000001 /* Share Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		947D04AC282AF0BF00D83248 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			files = (
-				9420C56A2855184B0099C8C8 /* ImagePicker.swift in Sources */,
+				94PP00012D0C000100000001 /* PhotoPicker.swift in Sources */,
+				94DP00012D0C000100000001 /* DocumentPicker.swift in Sources */,
 				947D04D1282AF0BF00D83248 /* File_CloudApp.swift in Sources */,
 				9420C567285511640099C8C8 /* UploadView.swift in Sources */,
 				948D130128550F38006BD99C /* SettingsView.swift in Sources */,
 				94BC795E2841AAA9003587E8 /* MainView.swift in Sources */,
 				94EB160D282E1B5D0099E47F /* FileUploader.swift in Sources */,
+				94FA00012D0C000100000001 /* FileUploaderAsync.swift in Sources */,
 				94KC00012D0C000100000001 /* Keychain.swift in Sources */,
+				94SE00012D0C000100000001 /* Settings.swift in Sources */,
 			);
 		};
 		947D04B2282AF0BF00D83248 /* Sources */ = {
@@ -378,12 +465,18 @@
 		947D04B9282AF0BF00D83248 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			files = (
-				9420C56B2855184B0099C8C8 /* ImagePicker.swift in Sources */,
 				947D04C4282AF0BF00D83248 /* Tests_iOSLaunchTests.swift in Sources */,
-				9420C568285511640099C8C8 /* UploadView.swift in Sources */,
-				948D130228550F38006BD99C /* SettingsView.swift in Sources */,
-				94BC795F2841AAB0003587E8 /* MainView.swift in Sources */,
 				947D04C2282AF0BF00D83248 /* Tests_iOS.swift in Sources */,
+			);
+		};
+		94SH00012D0C000100000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				94SV00012D0C000100000001 /* ShareViewController.swift in Sources */,
+				94FU00012D0C000100000001 /* FileUploader.swift in Sources */,
+				94FA00022D0C000100000001 /* FileUploaderAsync.swift in Sources */,
+				94KC00032D0C000100000001 /* Keychain.swift in Sources */,
+				94SE00022D0C000100000001 /* Settings.swift in Sources */,
 			);
 		};
 		947D04C5282AF0BF00D83248 /* Sources */ = {
@@ -404,6 +497,11 @@
 			isa = PBXTargetDependency;
 			target = 947D04B5282AF0BF00D83248 /* File Cloud (macOS) */;
 			targetProxy = 947D04CA282AF0BF00D83248 /* PBXContainerItemProxy */;
+		};
+		94TD00002D0C000100000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 94SH00002D0C000100000001 /* Share Extension */;
+			targetProxy = 94CP00002D0C000100000001 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -530,8 +628,10 @@
 		947D04DA282AF0BF00D83248 /* Debug configuration for PBXNativeTarget "File Cloud (iOS)" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = iOS/iOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 20260308;
 				ENABLE_PREVIEWS = YES;
@@ -563,8 +663,10 @@
 		947D04DB282AF0BF00D83248 /* Release configuration for PBXNativeTarget "File Cloud (iOS)" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = iOS/iOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 20260308;
 				ENABLE_PREVIEWS = YES;
@@ -751,6 +853,61 @@
 			};
 			name = Release;
 		};
+		94SH00042D0C000100000001 /* Debug configuration for PBXNativeTarget "Share Extension" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 20260308;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Share Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "File Cloud";
+				IPHONEOS_DEPLOYMENT_TARGET = 19.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 2026.03.08;
+				PRODUCT_BUNDLE_IDENTIFIER = "skalnik.File-Cloud.Share-Extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		94SH00052D0C000100000001 /* Release configuration for PBXNativeTarget "Share Extension" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Share Extension/Share Extension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 20260308;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Share Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "File Cloud";
+				IPHONEOS_DEPLOYMENT_TARGET = 19.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 2026.03.08;
+				PRODUCT_BUNDLE_IDENTIFIER = "skalnik.File-Cloud.Share-Extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -791,6 +948,14 @@
 			buildConfigurations = (
 				947D04E3282AF0BF00D83248 /* Debug configuration for PBXNativeTarget "Tests macOS" */,
 				947D04E4282AF0BF00D83248 /* Release configuration for PBXNativeTarget "Tests macOS" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		94SH00062D0C000100000001 /* Build configuration list for PBXNativeTarget "Share Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				94SH00042D0C000100000001 /* Debug configuration for PBXNativeTarget "Share Extension" */,
+				94SH00052D0C000100000001 /* Release configuration for PBXNativeTarget "Share Extension" */,
 			);
 			defaultConfigurationName = Release;
 		};
