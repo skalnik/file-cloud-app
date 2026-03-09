@@ -12,8 +12,10 @@ struct File_CloudApp: App {
 #if os(macOS)
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 #endif
-    
-    
+#if os(iOS)
+    @StateObject private var settings = SharedSettings()
+#endif
+
     var body: some Scene {
 #if os(macOS)
         MenuBarIcon().environmentObject(appDelegate)
@@ -24,6 +26,7 @@ struct File_CloudApp: App {
 #if os(iOS)
         WindowGroup {
             MainView()
+                .environmentObject(settings)
         }
 #endif
     }
