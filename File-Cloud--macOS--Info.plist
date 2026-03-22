@@ -4,5 +4,9 @@
 <dict>
 	<key>LSUIElement</key>
 	<true/>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2025 Mike Skalnik</string>
+	<key>NSUserNotificationUsageDescription</key>
+	<string>File Cloud needs to send you notifications for upload status.</string>
 </dict>
 </plist>

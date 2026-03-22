@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		9414D4FB282AF10100A5464D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9414D4FA282AF10100A5464D /* AppDelegate.swift */; };
 		9420C567285511640099C8C8 /* UploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9420C566285511640099C8C8 /* UploadView.swift */; };
-		94220B302EEFD6AE00DDB997 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 94220B2F2EEFD6AE00DDB997 /* Info.plist */; };
 		943829A02BA7E872004CE41F /* MenuBarIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9438299F2BA7E872004CE41F /* MenuBarIcon.swift */; };
 		943829A32BA7E9AE004CE41F /* MenuBarExtraAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 943829A22BA7E9AE004CE41F /* MenuBarExtraAccess */; };
 		945BB8A5283828DF000E94D1 /* NSStatusBarButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945BB8A4283828DF000E94D1 /* NSStatusBarButtonExtension.swift */; };
@@ -407,7 +406,6 @@
 		947D04B4282AF0BF00D83248 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
-				94220B302EEFD6AE00DDB997 /* Info.plist in Resources */,
 				947D04D6282AF0BF00D83248 /* Assets.xcassets in Resources */,
 				94A3396F2F6A6BE700CA0942 /* AppIcon.icon in Resources */,
 			);
