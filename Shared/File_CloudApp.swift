@@ -12,15 +12,14 @@ struct File_CloudApp: App {
 #if os(macOS)
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 #endif
-#if os(iOS)
     @StateObject private var settings = SharedSettings()
-#endif
 
     var body: some Scene {
 #if os(macOS)
         MenuBarIcon().environmentObject(appDelegate)
         Settings {
             SettingsView()
+                .environmentObject(settings)
         }
 #endif
 #if os(iOS)

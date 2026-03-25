@@ -2,30 +2,70 @@ import SwiftUI
 import LaunchAtLogin
 
 struct SettingsView: View {
-    @AppStorage("serverURL") var serverURL: String = ""
-    @AppStorage("username") var username: String = ""
-    @AppStorage("uploadOnEnter") var uploadOnEnter: Bool = false
-    @State var password: String = ""
+    @EnvironmentObject var settings: SharedSettings
+    @State private var connectionStatus: ConnectionStatus = .idle
     @State var pane = 1
+
+    enum ConnectionStatus: Equatable {
+        case idle
+        case testing
+        case success
+        case error(String)
+    }
+
+    private var connectionTint: Color {
+        switch connectionStatus {
+        case .success: .green
+        case .error: .red
+        default: .blue
+        }
+    }
+
+    private var hasCredentials: Bool {
+        !settings.serverURL.isEmpty && !settings.username.isEmpty && !settings.password.isEmpty
+    }
 
     var body: some View {
         TabView(selection: $pane) {
             VStack {
                 Form {
-                    TextField("Server URL", text: $serverURL, prompt: Text("https://cloud.example.com"))
-                    TextField("Username", text: $username)
-                    SecureField("Password", text: $password)
+                    TextField("Server URL", text: $settings.serverURL, prompt: Text("https://cloud.example.com"))
+                    TextField("Username", text: $settings.username)
+                    SecureField("Password", text: $settings.password)
                 }
+
+                Button(action: testConnection) {
+                    HStack {
+                        switch connectionStatus {
+                        case .idle:
+                            Image(systemName: "antenna.radiowaves.left.and.right")
+                            Text("Test Connection")
+                        case .testing:
+                            ProgressView()
+                                .controlSize(.small)
+                            Text("Testing...")
+                        case .success:
+                            Image(systemName: "checkmark.circle.fill")
+                            Text("Lookin good boss!")
+                        case .error(let message):
+                            Image(systemName: "xmark.circle.fill")
+                            Text(message)
+                        }
+                    }
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(connectionTint)
+                .disabled(!hasCredentials || connectionStatus == .testing)
             }
             .tabItem {
                 Label("Authentication", systemImage: "lock")
             }
             .padding()
             .tag(1)
-            
+
             VStack(alignment: .leading) {
                 LaunchAtLogin.Toggle()
-                Toggle(isOn: $uploadOnEnter) {
+                Toggle(isOn: $settings.uploadOnEnter) {
                     HStack {
                         Text("Begin uploading upon drag enter")
                         Image(systemName: "info.circle.fill")
@@ -40,11 +80,39 @@ struct SettingsView: View {
             .tag(2)
         }
         .frame(width:420)
-        .onAppear { password = Keychain.read(account: "password") ?? "" }
-        .onChange(of: password) { _, newValue in
-            Keychain.save(account: "password", password: newValue)
-            NotificationCenter.default.post(name: UserDefaults.didChangeNotification, object: nil)
+        .onChange(of: settings.serverURL) { connectionStatus = .idle }
+        .onChange(of: settings.username) { connectionStatus = .idle }
+        .onChange(of: settings.password) { connectionStatus = .idle }
+    }
+
+    private func testConnection() {
+        guard let url = URL(string: settings.serverURL), !settings.serverURL.isEmpty else {
+            connectionStatus = .error("Invalid server URL")
+            return
         }
+
+        connectionStatus = .testing
+
+        var request = URLRequest(url: url)
+        if !settings.username.isEmpty {
+            let loginString = "\(settings.username):\(settings.password)"
+            let loginData = Data(loginString.utf8)
+            request.setValue("Basic \(loginData.base64EncodedString())", forHTTPHeaderField: "Authorization")
+        }
+
+        URLSession.shared.dataTask(with: request) { _, response, error in
+            DispatchQueue.main.async {
+                if let error = error {
+                    connectionStatus = .error(error.localizedDescription)
+                } else if let http = response as? HTTPURLResponse, http.statusCode == 200 {
+                    connectionStatus = .success
+                } else if let http = response as? HTTPURLResponse {
+                    connectionStatus = .error("HTTP \(http.statusCode)")
+                } else {
+                    connectionStatus = .error("Unknown error")
+                }
+            }
+        }.resume()
     }
 }
 
@@ -52,7 +120,9 @@ struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             SettingsView(pane: 1)
+                .environmentObject(SharedSettings())
             SettingsView(pane: 2)
+                .environmentObject(SharedSettings())
         }
     }
 }
