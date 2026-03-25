@@ -9,9 +9,9 @@
 	<key>CFBundleName</key>
 	<string>File Cloud</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2026.03.08</string>
+	<string>2026.03.24</string>
 	<key>CFBundleVersion</key>
-	<string>20260308</string>
+	<string>1</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2025 Mike Skalnik</string>
 	<key>NSUserNotificationUsageDescription</key>
