@@ -82,12 +82,8 @@ targets:
     platform: macOS
     productName: File Cloud
     sources:
-      # The macOS app uses only a part of Shared. It does not use
-      # Settings.swift or FileUploaderAsync.swift.
-      - Shared/File_CloudApp.swift
-      - Shared/FileUploader.swift
-      - Shared/Keychain.swift
-      - Shared/Assets.xcassets
+      - path: Shared
+        excludes: ["*.entitlements"]
       - path: macOS
         excludes: ["*.entitlements", "Info.plist"]
       - path: AppIcon.icon
