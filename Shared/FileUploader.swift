@@ -19,6 +19,8 @@ class FileUploader: NSObject {
     var username: String?
     var password: String?
     
+    static let chunkSize = 1 << 20  // 1 MB
+
     let urlSession: URLSession
     
     var fileURL: URL?
@@ -63,13 +65,19 @@ class FileUploader: NSObject {
         
         let boundary = UUID().uuidString
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        guard let formData = formData(boundary: boundary, fileURL: fileURL) else {
-            delegate?.error(error: "Could not read file data")
+
+        let bodyURL: URL
+        do {
+            bodyURL = try multipartBody(boundary: boundary, fileURL: fileURL)
+        } catch {
+            delegate?.error(error: error.localizedDescription)
             return
         }
-        request.setValue(String(formData.count), forHTTPHeaderField: "Content-Length")
 
-        urlSession.uploadTask(with: request, from: formData, completionHandler: completionHandler).resume()
+        urlSession.uploadTask(with: request, fromFile: bodyURL) { data, response, error in
+            try? FileManager.default.removeItem(at: bodyURL)
+            self.completionHandler(data: data, response: response, error: error)
+        }.resume()
     }
     
     func completionHandler(data: Data?, response: URLResponse?, error: Error?) -> Void {
@@ -116,24 +124,48 @@ class FileUploader: NSObject {
         }
     }
     
-    func formData(boundary: String, fileURL: URL) -> Data? {
-        guard let fileData = try? Data(contentsOf: fileURL) else {
-            return nil
+    func multipartBody(boundary: String, fileURL: URL) throws -> URL {
+        let bodyURL = FileManager.default.temporaryDirectory
+            .appendingPathComponent("upload-\(UUID().uuidString)")
+
+        guard FileManager.default.createFile(atPath: bodyURL.path, contents: nil) else {
+            throw CocoaError(.fileWriteUnknown)
         }
 
-        var formData = Data()
-        let fileName = fileURL.lastPathComponent
+        do {
+            let source = try FileHandle(forReadingFrom: fileURL)
+            defer { try? source.close() }
 
-        formData.append("--\(boundary)\r\n".data(using: .utf8)!)
-        formData.append("Content-Disposition: form-data; name=\"file\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
-        if let mimeType = mimeType(fileURL: fileURL) {
-            formData.append("Content-Type: \(mimeType)\r\n".data(using: .utf8)!)
+            let body = try FileHandle(forWritingTo: bodyURL)
+            defer { try? body.close() }
+
+            var header = "--\(boundary)\r\n"
+            header += "Content-Disposition: form-data; name=\"file\"; filename=\"\(fileURL.lastPathComponent)\"\r\n"
+            if let mimeType = mimeType(fileURL: fileURL) {
+                header += "Content-Type: \(mimeType)\r\n"
+            }
+            header += "\r\n"
+            try body.write(contentsOf: Data(header.utf8))
+
+            var moreData = true
+            while moreData {
+                try autoreleasepool {
+                    guard let chunk = try source.read(upToCount: FileUploader.chunkSize),
+                          !chunk.isEmpty else {
+                        moreData = false
+                        return
+                    }
+                    try body.write(contentsOf: chunk)
+                }
+            }
+
+            try body.write(contentsOf: Data("\r\n--\(boundary)--\r\n".utf8))
+        } catch {
+            try? FileManager.default.removeItem(at: bodyURL)
+            throw error
         }
-        formData.append("\r\n".data(using: .utf8)!)
-        formData.append(fileData)
-        formData.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
 
-        return formData
+        return bodyURL
     }
     
     func mimeType(fileURL: URL) -> String? {

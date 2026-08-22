@@ -48,38 +48,72 @@ class FileUploaderTests: XCTestCase {
         XCTAssertEqual(delegate.errorMessage, "No file selected")
     }
 
-    func testFormDataWithKnownMimeType() throws {
+    /// Makes the body file, reads it back, then removes it.
+    private func bodyData(fileURL: URL, boundary: String = "test-boundary") throws -> Data {
+        let bodyURL = try uploader.multipartBody(boundary: boundary, fileURL: fileURL)
+        defer { try? FileManager.default.removeItem(at: bodyURL) }
+        return try Data(contentsOf: bodyURL)
+    }
+
+    func testMultipartBodyWithKnownMimeType() throws {
         let tempFile = FileManager.default.temporaryDirectory.appendingPathComponent("test.png")
-        let testData = Data("fakepng".utf8)
-        try testData.write(to: tempFile)
+        try Data("fakepng".utf8).write(to: tempFile)
         defer { try? FileManager.default.removeItem(at: tempFile) }
 
-        let boundary = "test-boundary"
-        let formData = uploader.formData(boundary: boundary, fileURL: tempFile)
+        let formString = String(data: try bodyData(fileURL: tempFile), encoding: .utf8)!
 
-        XCTAssertNotNil(formData)
-        let formString = String(data: formData!, encoding: .utf8)!
         XCTAssertTrue(formString.contains("--test-boundary\r\n"))
         XCTAssertTrue(formString.contains("Content-Disposition: form-data; name=\"file\"; filename=\"test.png\""))
         XCTAssertTrue(formString.contains("Content-Type: image/png"))
         XCTAssertTrue(formString.contains("--test-boundary--"))
     }
 
-    func testFormDataWithUnknownMimeType() throws {
+    func testMultipartBodyWithUnknownMimeType() throws {
         let tempFile = FileManager.default.temporaryDirectory.appendingPathComponent("test.unknownext")
-        let testData = Data("hello".utf8)
-        try testData.write(to: tempFile)
+        try Data("hello".utf8).write(to: tempFile)
         defer { try? FileManager.default.removeItem(at: tempFile) }
 
-        let boundary = "test-boundary"
-        let formData = uploader.formData(boundary: boundary, fileURL: tempFile)
+        let formString = String(data: try bodyData(fileURL: tempFile), encoding: .utf8)!
 
-        XCTAssertNotNil(formData)
-        let formString = String(data: formData!, encoding: .utf8)!
         XCTAssertTrue(formString.contains("Content-Disposition: form-data;"))
         XCTAssertFalse(formString.contains("Content-Type:"))
         // Should still have proper header/body separator
         XCTAssertTrue(formString.contains("\r\n\r\n"))
+    }
+
+    func testMultipartBodyKeepsFileBytesExact() throws {
+        // Larger than the 1 MB chunk, and not a multiple of it.
+        let fileBytes = Data((0..<(3 * 1024 * 1024 + 7)).map { UInt8($0 % 251) })
+        let tempFile = FileManager.default.temporaryDirectory.appendingPathComponent("big.unknownext")
+        try fileBytes.write(to: tempFile)
+        defer { try? FileManager.default.removeItem(at: tempFile) }
+
+        let body = try bodyData(fileURL: tempFile)
+
+        let header = Data("--test-boundary\r\nContent-Disposition: form-data; name=\"file\"; filename=\"big.unknownext\"\r\n\r\n".utf8)
+        let footer = Data("\r\n--test-boundary--\r\n".utf8)
+
+        XCTAssertEqual(body.count, header.count + fileBytes.count + footer.count)
+        XCTAssertEqual(body.prefix(header.count), header)
+        XCTAssertEqual(body.suffix(footer.count), footer)
+        XCTAssertEqual(body.dropFirst(header.count).dropLast(footer.count), fileBytes)
+    }
+
+    /// Counts the body files that multipartBody leaves in the temporary directory.
+    private func bodyFileCount() throws -> Int {
+        try FileManager.default
+            .contentsOfDirectory(atPath: FileManager.default.temporaryDirectory.path)
+            .filter { $0.hasPrefix("upload-") }
+            .count
+    }
+
+    func testMultipartBodyRemovesTheFileWhenTheSourceIsMissing() throws {
+        let before = try bodyFileCount()
+
+        XCTAssertThrowsError(try uploader.multipartBody(boundary: "b",
+                                                        fileURL: URL(fileURLWithPath: "/nonexistent/file.txt")))
+
+        XCTAssertEqual(try bodyFileCount(), before, "A failed body must leave no file behind")
     }
 
     func testAuthHeaderFormat() {
@@ -135,25 +169,25 @@ class FileUploaderTests: XCTestCase {
         XCTAssertNil(delegate.errorMessage)
     }
 
-    func testUnauthorizedResponseReportsCredentials() {
-        // The server sends HTML, not JSON, with a 401.
+    func testFailureStatusCodesReportAUsefulMessage() {
+        // The server sends HTML, not JSON, when it rejects the upload.
         let data = Data("<html>Unauthorized</html>".utf8)
-        uploader.completionHandler(data: data, response: httpResponse(401), error: nil)
+        let cases: [(code: Int, message: String)] = [
+            (401, "Check your username and password"),
+            (403, "Check your username and password"),
+            (404, "The server URL is not correct"),
+            (500, "The server returned an error (HTTP 500)"),
+        ]
 
-        XCTAssertEqual(delegate.errorMessage, "Check your username and password")
-        XCTAssertNil(delegate.uploadedURL)
-    }
+        for (code, message) in cases {
+            delegate = MockUploadDelegate()
+            uploader.delegate = delegate
 
-    func testNotFoundResponseReportsTheURL() {
-        uploader.completionHandler(data: Data(), response: httpResponse(404), error: nil)
+            uploader.completionHandler(data: data, response: httpResponse(code), error: nil)
 
-        XCTAssertEqual(delegate.errorMessage, "The server URL is not correct")
-    }
-
-    func testServerErrorReportsTheStatusCode() {
-        uploader.completionHandler(data: Data(), response: httpResponse(500), error: nil)
-
-        XCTAssertEqual(delegate.errorMessage, "The server returned an error (HTTP 500)")
+            XCTAssertEqual(delegate.errorMessage, message, "status \(code)")
+            XCTAssertNil(delegate.uploadedURL, "status \(code)")
+        }
     }
 
     func testTransportErrorUsesTheLocalizedDescription() {
@@ -190,9 +224,8 @@ class FileUploaderTests: XCTestCase {
         XCTAssertNil(uploader.delegate, "FileUploader must not keep its delegate alive")
     }
 
-    func testFormDataWithNonexistentFile() {
+    func testMultipartBodyThrowsForANonexistentFile() {
         let fakeFile = URL(fileURLWithPath: "/nonexistent/file.txt")
-        let formData = uploader.formData(boundary: "boundary", fileURL: fakeFile)
-        XCTAssertNil(formData)
+        XCTAssertThrowsError(try uploader.multipartBody(boundary: "boundary", fileURL: fakeFile))
     }
 }
