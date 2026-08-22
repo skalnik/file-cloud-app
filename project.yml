@@ -1,0 +1,237 @@
+# XcodeGen project spec for File Cloud.
+# Run `make generate` (or `xcodegen generate`) to make "File Cloud.xcodeproj".
+# Do not edit the generated project. Edit this file.
+name: File Cloud
+
+options:
+  bundleIdPrefix: skalnik
+  createIntermediateGroups: true
+  defaultConfig: Release
+  groupSortPosition: top
+  minimumXcodeGenVersion: "2.42.0"
+  settingPresets: project
+
+packages:
+  MenuBarExtraAccess:
+    url: https://github.com/orchetect/MenuBarExtraAccess
+    majorVersion: 1.0.5
+  LaunchAtLogin:
+    url: https://github.com/sindresorhus/LaunchAtLogin-Modern
+    majorVersion: 1.1.0
+
+settings:
+  base:
+    ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: YES
+    CODE_SIGN_STYLE: Automatic
+    CURRENT_PROJECT_VERSION: 1
+    DEAD_CODE_STRIPPING: YES
+    DEVELOPMENT_TEAM: 5R3XW76G52
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    IPHONEOS_DEPLOYMENT_TARGET: "26.0"
+    MACOSX_DEPLOYMENT_TARGET: "26.0"
+    MARKETING_VERSION: 2026.03.24
+    STRING_CATALOG_GENERATE_SYMBOLS: YES
+
+targets:
+  File Cloud (iOS):
+    type: application
+    platform: iOS
+    productName: File Cloud
+    sources:
+      - path: Shared
+        excludes: ["*.entitlements"]
+      - path: iOS
+        excludes: ["*.entitlements"]
+      - path: AppIcon.icon
+        type: file
+        buildPhase: resources
+    dependencies:
+      - target: Share Extension
+    settings:
+      base:
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        CODE_SIGN_ENTITLEMENTS: iOS/iOS.entitlements
+        ENABLE_PREVIEWS: YES
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: File Cloud
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.utilities
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
+        LD_RUNPATH_SEARCH_PATHS:
+          - $(inherited)
+          - "@executable_path/Frameworks"
+        PRODUCT_BUNDLE_IDENTIFIER: skalnik.File-Cloud
+        PRODUCT_NAME: File Cloud
+        SDKROOT: iphoneos
+        SUPPORTED_PLATFORMS: iphoneos iphonesimulator
+        SUPPORTS_MACCATALYST: NO
+        SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: NO
+        SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD: NO
+        SWIFT_EMIT_LOC_STRINGS: YES
+        TARGETED_DEVICE_FAMILY: "1,2"
+      configs:
+        Release:
+          VALIDATE_PRODUCT: YES
+
+  File Cloud (macOS):
+    type: application
+    platform: macOS
+    productName: File Cloud
+    sources:
+      # The macOS app uses only a part of Shared. It does not use
+      # Settings.swift or FileUploaderAsync.swift.
+      - Shared/File_CloudApp.swift
+      - Shared/FileUploader.swift
+      - Shared/Keychain.swift
+      - Shared/Assets.xcassets
+      - path: macOS
+        excludes: ["*.entitlements", "Info.plist"]
+      - path: AppIcon.icon
+        type: file
+        buildPhase: resources
+    dependencies:
+      - package: LaunchAtLogin
+      - package: MenuBarExtraAccess
+    settings:
+      base:
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS: YES
+        CODE_SIGN_ENTITLEMENTS: macOS/macOS.entitlements
+        CODE_SIGN_IDENTITY: "-"
+        CODE_SIGN_IDENTITY[sdk=macosx*]: Apple Development
+        COMBINE_HIDPI_IMAGES: YES
+        ENABLE_APP_SANDBOX: YES
+        ENABLE_FILE_ACCESS_DOWNLOADS_FOLDER: readonly
+        ENABLE_FILE_ACCESS_MOVIES_FOLDER: readonly
+        ENABLE_FILE_ACCESS_MUSIC_FOLDER: readonly
+        ENABLE_FILE_ACCESS_PICTURE_FOLDER: readonly
+        ENABLE_HARDENED_RUNTIME: YES
+        ENABLE_OUTGOING_NETWORK_CONNECTIONS: YES
+        ENABLE_PREVIEWS: YES
+        ENABLE_USER_SELECTED_FILES: readonly
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_FILE: macOS/Info.plist
+        INFOPLIST_KEY_CFBundleDisplayName: File Cloud
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.utilities
+        LD_RUNPATH_SEARCH_PATHS:
+          - $(inherited)
+          - "@executable_path/../Frameworks"
+        PRODUCT_BUNDLE_IDENTIFIER: skalnik.File-Cloud
+        PRODUCT_NAME: File Cloud
+        SDKROOT: macosx
+        SWIFT_EMIT_LOC_STRINGS: YES
+
+  Share Extension:
+    type: app-extension
+    platform: iOS
+    sources:
+      - Share Extension/ShareViewController.swift
+      - Shared/FileUploader.swift
+      - Shared/FileUploaderAsync.swift
+      - Shared/Keychain.swift
+      - Shared/Settings.swift
+      - path: AppIcon.icon
+        type: file
+        buildPhase: resources
+    settings:
+      base:
+        CODE_SIGN_ENTITLEMENTS: Share Extension/Share Extension.entitlements
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_FILE: Share Extension/Info.plist
+        INFOPLIST_KEY_CFBundleDisplayName: File Cloud
+        LD_RUNPATH_SEARCH_PATHS:
+          - $(inherited)
+          - "@executable_path/Frameworks"
+          - "@executable_path/../../Frameworks"
+        PRODUCT_BUNDLE_IDENTIFIER: skalnik.File-Cloud.Share-Extension
+        PRODUCT_NAME: $(TARGET_NAME)
+        SDKROOT: iphoneos
+        SKIP_INSTALL: YES
+        SUPPORTED_PLATFORMS: iphoneos iphonesimulator
+        SWIFT_EMIT_LOC_STRINGS: YES
+        TARGETED_DEVICE_FAMILY: "1,2"
+      configs:
+        Release:
+          VALIDATE_PRODUCT: YES
+
+  Tests iOS:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - Tests iOS
+    dependencies:
+      - target: File Cloud (iOS)
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        MARKETING_VERSION: "1.0"
+        PRODUCT_BUNDLE_IDENTIFIER: skalnik.Tests-iOS
+        PRODUCT_NAME: $(TARGET_NAME)
+        SDKROOT: iphoneos
+        SWIFT_EMIT_LOC_STRINGS: NO
+        TARGETED_DEVICE_FAMILY: "1,2"
+        TEST_TARGET_NAME: File Cloud (iOS)
+      configs:
+        Release:
+          VALIDATE_PRODUCT: YES
+
+  Tests macOS:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - Tests macOS
+    dependencies:
+      - target: File Cloud (macOS)
+    settings:
+      base:
+        BUNDLE_LOADER: $(TEST_HOST)
+        GENERATE_INFOPLIST_FILE: YES
+        MARKETING_VERSION: "1.0"
+        PRODUCT_BUNDLE_IDENTIFIER: skalnik.Tests-macOS
+        PRODUCT_NAME: $(TARGET_NAME)
+        SDKROOT: macosx
+        SWIFT_EMIT_LOC_STRINGS: NO
+        TEST_HOST: $(BUILT_PRODUCTS_DIR)/File Cloud.app/Contents/MacOS/File Cloud
+        TEST_TARGET_NAME: File Cloud (macOS)
+
+schemes:
+  File Cloud (iOS):
+    build:
+      targets:
+        File Cloud (iOS): all
+        Tests iOS: [test, analyze]
+    test:
+      config: Debug
+      targets:
+        - Tests iOS
+    run:
+      config: Debug
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
+
+  File Cloud (macOS):
+    build:
+      targets:
+        File Cloud (macOS): all
+        Tests macOS: [test, analyze]
+    test:
+      config: Debug
+      targets:
+        - Tests macOS
+    run:
+      config: Debug
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release

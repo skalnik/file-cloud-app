@@ -1,0 +1,12 @@
+.DS_Store
+build/
+DerivedData/
+
+# XcodeGen makes the Xcode project from project.yml. Do not track it.
+# Package.resolved is the lock file for the Swift packages. Keep it.
+File Cloud.xcodeproj/**
+!File Cloud.xcodeproj/project.xcworkspace/
+!File Cloud.xcodeproj/project.xcworkspace/xcshareddata/
+!File Cloud.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/
+!File Cloud.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+.claude/settings.local.json
