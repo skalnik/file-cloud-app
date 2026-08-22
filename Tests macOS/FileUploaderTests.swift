@@ -118,6 +118,78 @@ class FileUploaderTests: XCTestCase {
         XCTAssertNil(Keychain.read(account: account))
     }
 
+    // MARK: - Response handling
+
+    private func httpResponse(_ statusCode: Int) -> HTTPURLResponse {
+        HTTPURLResponse(url: URL(string: "https://example.com")!,
+                        statusCode: statusCode,
+                        httpVersion: "HTTP/1.1",
+                        headerFields: nil)!
+    }
+
+    func testSuccessResponseMakesTheURL() {
+        let data = Data(#"{"url":"abc123.png"}"#.utf8)
+        uploader.completionHandler(data: data, response: httpResponse(200), error: nil)
+
+        XCTAssertEqual(delegate.uploadedURL?.absoluteString, "https://example.com/abc123.png")
+        XCTAssertNil(delegate.errorMessage)
+    }
+
+    func testUnauthorizedResponseReportsCredentials() {
+        // The server sends HTML, not JSON, with a 401.
+        let data = Data("<html>Unauthorized</html>".utf8)
+        uploader.completionHandler(data: data, response: httpResponse(401), error: nil)
+
+        XCTAssertEqual(delegate.errorMessage, "Check your username and password")
+        XCTAssertNil(delegate.uploadedURL)
+    }
+
+    func testNotFoundResponseReportsTheURL() {
+        uploader.completionHandler(data: Data(), response: httpResponse(404), error: nil)
+
+        XCTAssertEqual(delegate.errorMessage, "The server URL is not correct")
+    }
+
+    func testServerErrorReportsTheStatusCode() {
+        uploader.completionHandler(data: Data(), response: httpResponse(500), error: nil)
+
+        XCTAssertEqual(delegate.errorMessage, "The server returned an error (HTTP 500)")
+    }
+
+    func testTransportErrorUsesTheLocalizedDescription() {
+        let error = NSError(domain: NSURLErrorDomain,
+                            code: NSURLErrorNotConnectedToInternet,
+                            userInfo: [NSLocalizedDescriptionKey: "The Internet connection appears to be offline."])
+        uploader.completionHandler(data: nil, response: nil, error: error)
+
+        XCTAssertEqual(delegate.errorMessage, "The Internet connection appears to be offline.")
+    }
+
+    func testMalformedJSONReportsAReadableError() {
+        let data = Data("not json".utf8)
+        uploader.completionHandler(data: data, response: httpResponse(200), error: nil)
+
+        XCTAssertEqual(delegate.errorMessage, "Could not read the response of the server")
+    }
+
+    func testMissingResponseIsAnError() {
+        uploader.completionHandler(data: Data(), response: nil, error: nil)
+
+        XCTAssertEqual(delegate.errorMessage, "No response from the server")
+    }
+
+    // MARK: - Delegate lifetime
+
+    func testDelegateIsWeak() {
+        var strongDelegate: MockUploadDelegate? = MockUploadDelegate()
+        uploader.delegate = strongDelegate
+        XCTAssertNotNil(uploader.delegate)
+
+        strongDelegate = nil
+
+        XCTAssertNil(uploader.delegate, "FileUploader must not keep its delegate alive")
+    }
+
     func testFormDataWithNonexistentFile() {
         let fakeFile = URL(fileURLWithPath: "/nonexistent/file.txt")
         let formData = uploader.formData(boundary: "boundary", fileURL: fakeFile)
