@@ -28,12 +28,22 @@ private class AsyncUploadDelegate: UploadDelegate {
     }
 
     func error(error: String) {
-        continuation?.resume(throwing: NSError(domain: "FileUploader", code: 1, userInfo: [NSLocalizedDescriptionKey: error]))
+        continuation?.resume(throwing: UploadError.failed(error))
         finish()
     }
 
     private func finish() {
         continuation = nil
         selfReference = nil
+    }
+}
+
+enum UploadError: LocalizedError {
+    case failed(String)
+
+    var errorDescription: String? {
+        switch self {
+        case .failed(let message): message
+        }
     }
 }
