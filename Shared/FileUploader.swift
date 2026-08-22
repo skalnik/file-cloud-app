@@ -8,7 +8,7 @@
 import Foundation
 import UniformTypeIdentifiers
 
-protocol UploadDelegate {
+protocol UploadDelegate: AnyObject {
     func error(error: String)
     func uploaded(url: URL)
     func uploading()
@@ -23,7 +23,7 @@ class FileUploader: NSObject {
     
     var fileURL: URL?
     
-    var delegate: UploadDelegate?
+    weak var delegate: UploadDelegate?
     
     struct FileCloudResponse: Codable {
         var url: String
@@ -75,8 +75,8 @@ class FileUploader: NSObject {
     func completionHandler(data: Data?, response: URLResponse?, error: Error?) -> Void {
         self.fileURL = nil
 
-        if error != nil {
-            delegate?.error(error:"Error took place \(String(describing: error))")
+        if let error = error {
+            delegate?.error(error: error.localizedDescription)
             return
         }
 
