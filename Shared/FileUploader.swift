@@ -79,7 +79,17 @@ class FileUploader: NSObject {
             delegate?.error(error:"Error took place \(String(describing: error))")
             return
         }
-        
+
+        guard let httpResponse = response as? HTTPURLResponse else {
+            delegate?.error(error: "No response from the server")
+            return
+        }
+
+        guard 200..<300 ~= httpResponse.statusCode else {
+            delegate?.error(error: FileUploader.message(forStatusCode: httpResponse.statusCode))
+            return
+        }
+
         guard let data = data else {
             delegate?.error(error: "No data from server")
             return
@@ -93,8 +103,16 @@ class FileUploader: NSObject {
             }
             let uploadedURL = serverURL.appendingPathComponent(decodedResponse.url)
             delegate?.uploaded(url: uploadedURL)
-        } catch let jsonError {
-            delegate?.error(error: jsonError.localizedDescription)
+        } catch {
+            delegate?.error(error: "Could not read the response of the server")
+        }
+    }
+
+    static func message(forStatusCode statusCode: Int) -> String {
+        switch statusCode {
+        case 401, 403: "Check your username and password"
+        case 404: "The server URL is not correct"
+        default: "The server returned an error (HTTP \(statusCode))"
         }
     }
     
