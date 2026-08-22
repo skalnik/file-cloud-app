@@ -27,5 +27,5 @@ struct MainView: View {
 
 #Preview {
     MainView()
-        .environmentObject(SharedSettings())
+        .environmentObject(SharedSettings.preview)
 }

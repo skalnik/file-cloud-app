@@ -2,32 +2,31 @@ import AppKit
 import UserNotifications
 
 class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate, ObservableObject {
-    var uploader: FileUploader?
+    let settings: SharedSettings
     var notifications: Bool = false
-    var uploadOnEnter: Bool = false
     @Published var icon: String = "cloud.fill"
-    
-    func applicationDidFinishLaunching(_ notification: Notification) {
-        // Migrate password from UserDefaults to Keychain
+
+    /// The file waits here between the start of the drag and the drop.
+    private var pendingFileURL: URL?
+
+    override init() {
+        // Move an old plaintext password into the Keychain before the settings
+        // read it.
         if let oldPassword = UserDefaults.standard.string(forKey: "password"), !oldPassword.isEmpty {
             Keychain.save(account: "password", password: oldPassword)
             UserDefaults.standard.removeObject(forKey: "password")
         }
 
-        let serverURLString = UserDefaults.standard.string(forKey: "serverURL")
-        self.uploader = FileUploader(serverURL: serverURLString.flatMap { URL(string: $0) },
-                                     username: UserDefaults.standard.string(forKey: "username"),
-                                     password: Keychain.read(account: "password"))
-        self.uploader?.delegate = self
-        self.uploadOnEnter = UserDefaults.standard.bool(forKey: "uploadOnEnter")
-        
+        self.settings = SharedSettings()
+        super.init()
+    }
+
+    func applicationDidFinishLaunching(_ notification: Notification) {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { (granted, _) in
             self.notifications = granted
         }
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(updateSettings), name: UserDefaults.didChangeNotification, object: nil)
     }
-    
+
     func defaultIcon() {
         self.icon = "cloud.fill"
     }
@@ -83,46 +82,48 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate, ObservableOb
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
         center.add(request)
     }
-    
+
+    /// Makes an uploader from the settings of this moment. The upload task
+    /// keeps it alive until the server answers.
+    private func upload(fileURL: URL) {
+        // The read at launch can fail, so ask the Keychain again.
+        settings.reloadPassword()
+
+        let uploader = FileUploader(serverURL: URL(string: settings.serverURL),
+                                    username: settings.username,
+                                    password: settings.password)
+        uploader.delegate = self
+        uploader.fileURL = fileURL
+        uploader.upload()
+    }
+
     @objc func dragEntered(_ sender: NSDraggingInfo) {
-        // Check everytime on drag enter in case it's changed
-        self.uploadOnEnter = UserDefaults.standard.bool(forKey: "uploadOnEnter")
-        
         self.icon = "cloud"
-        
-        if uploadOnEnter {
-            if let fileURL = NSURL.init(from: sender.draggingPasteboard)?.standardized {
-                uploader?.fileURL = fileURL
-                uploader?.upload()
-            }
+
+        guard settings.uploadOnEnter,
+              let fileURL = NSURL.init(from: sender.draggingPasteboard)?.standardized else {
+            return
         }
+
+        upload(fileURL: fileURL)
     }
     
     @objc func prepareDrag(_ sender: NSDraggingInfo) {
-        if !uploadOnEnter {
-            if let fileURL = NSURL.init(from: sender.draggingPasteboard)?.standardized {
-                uploader?.fileURL = fileURL
-            }
+        if !settings.uploadOnEnter {
+            pendingFileURL = NSURL.init(from: sender.draggingPasteboard)?.standardized
         }
     }
 
     @objc func performDrag(_ sender: Any?) {
-        if !uploadOnEnter {
-            uploader?.upload()
-        }
+        guard !settings.uploadOnEnter, let fileURL = pendingFileURL else { return }
+
+        pendingFileURL = nil
+        upload(fileURL: fileURL)
     }
     
     @objc func dragExit(_ sender: Any? ) {
-        if !uploadOnEnter {
+        if !settings.uploadOnEnter {
             defaultIcon()
         }
-    }
-    
-    @objc func updateSettings() {
-        let serverURLString = UserDefaults.standard.string(forKey: "serverURL")
-        self.uploader?.serverURL = serverURLString.flatMap { URL(string: $0) }
-        self.uploader?.username = UserDefaults.standard.string(forKey: "username")
-        self.uploader?.password = Keychain.read(account: "password")
-        self.uploadOnEnter = UserDefaults.standard.bool(forKey: "uploadOnEnter")
     }
 }

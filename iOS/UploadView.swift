@@ -142,20 +142,20 @@ struct UploadView: View {
 
 #Preview("Idle") {
     UploadView()
-        .environmentObject(SharedSettings())
+        .environmentObject(SharedSettings.preview)
 }
 
 #Preview("Uploading") {
     UploadView(uploadState: .uploading)
-        .environmentObject(SharedSettings())
+        .environmentObject(SharedSettings.preview)
 }
 
 #Preview("Success") {
     UploadView(uploadState: .success(URL(string: "https://cloud.example.com/acab13exrtalong.png")!))
-        .environmentObject(SharedSettings())
+        .environmentObject(SharedSettings.preview)
 }
 
 #Preview("Error") {
     UploadView(uploadState: .error("Connection refused"))
-        .environmentObject(SharedSettings())
+        .environmentObject(SharedSettings.preview)
 }

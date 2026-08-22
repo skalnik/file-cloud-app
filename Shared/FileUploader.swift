@@ -56,7 +56,7 @@ class FileUploader: NSObject {
         }
 
         if let username = username, !username.isEmpty,
-           let password = password {
+           let password = password, !password.isEmpty {
             let loginString = "\(username):\(password)"
             let loginData = Data(loginString.utf8)
             let base64LoginString = loginData.base64EncodedString()
