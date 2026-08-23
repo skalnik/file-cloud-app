@@ -54,14 +54,10 @@ struct UploadView: View {
         }
         .padding(.top, 48)
         .sheet(isPresented: $showPhotoPicker) {
-            PhotoPicker { url in
-                upload(fileURL: url)
-            }
+            PhotoPicker(onPick: picked)
         }
         .sheet(isPresented: $showDocumentPicker) {
-            DocumentPicker { url in
-                upload(fileURL: url)
-            }
+            DocumentPicker(onPick: picked)
         }
     }
 
@@ -114,6 +110,13 @@ struct UploadView: View {
         _uploadState = State(initialValue: uploadState)
     }
 
+    private func picked(_ result: Result<URL, Error>) {
+        switch result {
+        case .success(let fileURL): upload(fileURL: fileURL)
+        case .failure(let error): uploadState = .error(error.localizedDescription)
+        }
+    }
+
     private func upload(fileURL: URL) {
         uploadState = .uploading
 
@@ -125,6 +128,8 @@ struct UploadView: View {
         uploader.fileURL = fileURL
 
         Task {
+            defer { TemporaryFile.remove(fileURL) }
+
             do {
                 let url = try await uploader.uploadAsync()
                 await MainActor.run {
