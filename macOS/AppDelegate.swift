@@ -55,12 +55,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate, ObservableOb
         DispatchQueue.main.async {
             self.icon = "checkmark"
             self.resetIconAfterDelay()
+
+            let pasteboard = NSPasteboard.general
+            pasteboard.declareTypes([NSPasteboard.PasteboardType.string], owner: nil)
+            pasteboard.setString(url.absoluteString, forType: NSPasteboard.PasteboardType.string)
         }
 
-        let pasteboard = NSPasteboard.general
-        pasteboard.declareTypes([NSPasteboard.PasteboardType.string], owner: nil)
-        pasteboard.setString(url.absoluteString, forType: NSPasteboard.PasteboardType.string)
-        
         displayNotification(title: "File Uploaded!", body: "URL copied to your clipboard")
     }
     
