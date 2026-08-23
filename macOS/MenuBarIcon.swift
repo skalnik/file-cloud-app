@@ -22,16 +22,8 @@ struct MainMenu: View {
         Text("📂☁️ File Cloud")
         Divider()
         Button("Settings") {
+            NSApp.activate()
             openSettings()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                NSApp.activate()
-                if let settingsWindow = NSApplication.shared.windows
-                    .first(where: { $0.title == "Settings" }) {
-                    settingsWindow.level = .modalPanel
-                    settingsWindow.makeKeyAndOrderFront(nil)
-                    settingsWindow.level = .normal
-                }
-            }
         }
         .keyboardShortcut(",", modifiers: .command)
         Button("Quit") { NSApplication.shared.terminate(nil) }.keyboardShortcut("q", modifiers: .command)

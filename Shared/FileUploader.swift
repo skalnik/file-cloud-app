@@ -14,7 +14,7 @@ protocol UploadDelegate: AnyObject {
     func uploading()
 }
 
-class FileUploader: NSObject {
+class FileUploader {
     var serverURL: URL?
     var username: String?
     var password: String?
