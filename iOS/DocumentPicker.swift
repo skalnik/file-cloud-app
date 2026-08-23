@@ -2,7 +2,7 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct DocumentPicker: UIViewControllerRepresentable {
-    let onPick: (URL) -> Void
+    let onPick: (Result<URL, Error>) -> Void
 
     func makeUIViewController(context: Context) -> UIDocumentPickerViewController {
         let picker = UIDocumentPickerViewController(forOpeningContentTypes: [.item])
@@ -17,25 +17,34 @@ struct DocumentPicker: UIViewControllerRepresentable {
     }
 
     class Coordinator: NSObject, UIDocumentPickerDelegate {
-        let onPick: (URL) -> Void
+        let onPick: (Result<URL, Error>) -> Void
 
-        init(onPick: @escaping (URL) -> Void) {
+        init(onPick: @escaping (Result<URL, Error>) -> Void) {
             self.onPick = onPick
         }
 
         func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
             guard let url = urls.first else { return }
 
-            guard url.startAccessingSecurityScopedResource() else { return }
+            guard url.startAccessingSecurityScopedResource() else {
+                onPick(.failure(PickerError.noAccess))
+                return
+            }
             defer { url.stopAccessingSecurityScopedResource() }
 
-            let tempDir = FileManager.default.temporaryDirectory
-            let dest = tempDir.appendingPathComponent(url.lastPathComponent)
-            try? FileManager.default.removeItem(at: dest)
-            do {
-                try FileManager.default.copyItem(at: url, to: dest)
-                onPick(dest)
-            } catch {}
+            onPick(Result { try TemporaryFile.copy(from: url) })
+        }
+    }
+}
+
+enum PickerError: LocalizedError {
+    case noAccess
+    case noImage
+
+    var errorDescription: String? {
+        switch self {
+        case .noAccess: "Could not read the file you picked"
+        case .noImage: "Could not read the photo you picked"
         }
     }
 }

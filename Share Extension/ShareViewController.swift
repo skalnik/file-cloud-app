@@ -62,20 +62,13 @@ class ShareViewController: UIViewController {
                 return
             }
 
-            let tempDir = FileManager.default.temporaryDirectory
-            let dest = tempDir.appendingPathComponent(url.lastPathComponent)
-            try? FileManager.default.removeItem(at: dest)
-
             do {
-                try FileManager.default.copyItem(at: url, to: dest)
+                self.upload(fileURL: try TemporaryFile.copy(from: url))
             } catch {
                 DispatchQueue.main.async {
                     self.finish(error: "Could not copy file")
                 }
-                return
             }
-
-            self.upload(fileURL: dest)
         }
     }
 
@@ -97,6 +90,8 @@ class ShareViewController: UIViewController {
         uploader.fileURL = fileURL
 
         Task {
+            defer { TemporaryFile.remove(fileURL) }
+
             do {
                 let url = try await uploader.uploadAsync()
                 await MainActor.run {

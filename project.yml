@@ -131,6 +131,7 @@ targets:
       - Shared/FileUploaderAsync.swift
       - Shared/Keychain.swift
       - Shared/Settings.swift
+      - Shared/TemporaryFile.swift
       - path: AppIcon.icon
         type: file
         buildPhase: resources
