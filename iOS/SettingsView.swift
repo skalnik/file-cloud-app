@@ -97,11 +97,7 @@ struct SettingsView: View {
         connectionStatus = .testing
 
         var request = URLRequest(url: url)
-        if !settings.username.isEmpty {
-            let loginString = "\(settings.username):\(settings.password)"
-            let loginData = Data(loginString.utf8)
-            request.setValue("Basic \(loginData.base64EncodedString())", forHTTPHeaderField: "Authorization")
-        }
+        request.setBasicAuth(username: settings.username, password: settings.password)
 
         URLSession.shared.dataTask(with: request) { _, response, error in
             DispatchQueue.main.async {

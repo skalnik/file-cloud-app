@@ -127,6 +127,7 @@ targets:
     platform: iOS
     sources:
       - Share Extension/ShareViewController.swift
+      - Shared/BasicAuth.swift
       - Shared/FileUploader.swift
       - Shared/FileUploaderAsync.swift
       - Shared/Keychain.swift
