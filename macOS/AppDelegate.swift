@@ -93,8 +93,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate, ObservableOb
                                     username: settings.username,
                                     password: settings.password)
         uploader.delegate = self
-        uploader.fileURL = fileURL
-        uploader.upload()
+        uploader.upload(fileURL: fileURL)
     }
 
     @objc func dragEntered(_ sender: NSDraggingInfo) {

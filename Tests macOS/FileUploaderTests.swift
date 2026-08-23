@@ -34,18 +34,37 @@ class FileUploaderTests: XCTestCase {
 
     func testUploadWithNilServerURL() {
         uploader.serverURL = nil
-        uploader.fileURL = URL(fileURLWithPath: "/tmp/test.txt")
-        uploader.upload()
+        uploader.upload(fileURL: URL(fileURLWithPath: "/tmp/test.txt"))
 
         XCTAssertEqual(delegate.errorMessage, "Server URL is not configured")
         XCTAssertTrue(delegate.uploadingCalled)
     }
 
-    func testUploadWithNilFileURL() {
-        uploader.fileURL = nil
-        uploader.upload()
+    /// The delegate and the completion must hear the same failure.
+    func testUploadReportsFailureToTheCompletion() {
+        uploader.serverURL = nil
+        var result: Result<URL, Error>?
 
-        XCTAssertEqual(delegate.errorMessage, "No file selected")
+        uploader.upload(fileURL: URL(fileURLWithPath: "/tmp/test.txt")) { result = $0 }
+
+        guard case .failure(let error)? = result else {
+            return XCTFail("The completion must get a failure")
+        }
+        XCTAssertEqual(error.localizedDescription, "Server URL is not configured")
+        XCTAssertEqual(delegate.errorMessage, error.localizedDescription)
+    }
+
+    func testSuccessReachesTheCompletion() {
+        var result: Result<URL, Error>?
+        let data = Data(#"{"url":"abc123.png"}"#.utf8)
+
+        uploader.completionHandler(data: data, response: httpResponse(200), error: nil) { result = $0 }
+
+        guard case .success(let url)? = result else {
+            return XCTFail("The completion must get the URL")
+        }
+        XCTAssertEqual(url.absoluteString, "https://example.com/abc123.png")
+        XCTAssertEqual(delegate.uploadedURL, url)
     }
 
     /// Makes the body file, reads it back, then removes it.
@@ -116,21 +135,6 @@ class FileUploaderTests: XCTestCase {
         XCTAssertEqual(try bodyFileCount(), before, "A failed body must leave no file behind")
     }
 
-    func testAuthHeaderFormat() {
-        uploader.username = "user"
-        uploader.password = "pass"
-        uploader.serverURL = URL(string: "https://example.com")
-
-        let tempFile = FileManager.default.temporaryDirectory.appendingPathComponent("test.txt")
-        try? Data("hello".utf8).write(to: tempFile)
-        defer { try? FileManager.default.removeItem(at: tempFile) }
-
-        uploader.fileURL = tempFile
-
-        // The expected base64 of "user:pass"
-        let expected = Data("user:pass".utf8).base64EncodedString()
-        XCTAssertEqual(expected, "dXNlcjpwYXNz")
-    }
 
     func testKeychainRoundTrip() {
         let account = "test-keychain-round-trip"

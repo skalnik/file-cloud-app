@@ -23,10 +23,11 @@ class FileUploader: NSObject {
 
     let urlSession: URLSession
     
-    var fileURL: URL?
-    
     weak var delegate: UploadDelegate?
     
+    /// Reports the end of one upload. The delegate hears the same result.
+    typealias Completion = (Result<URL, Error>) -> Void
+
     struct FileCloudResponse: Codable {
         var url: String
     }
@@ -39,21 +40,16 @@ class FileUploader: NSObject {
         self.urlSession = URLSession.shared
     }
     
-    func upload() {
+    func upload(fileURL: URL, completion: Completion? = nil) {
         delegate?.uploading()
 
         guard let serverURL = serverURL else {
-            delegate?.error(error: "Server URL is not configured")
+            report(error: "Server URL is not configured", to: completion)
             return
         }
 
         var request = URLRequest(url: serverURL)
         request.httpMethod = "POST"
-
-        guard let fileURL = fileURL else {
-            delegate?.error(error: "No file selected")
-            return
-        }
 
         if let username = username, !username.isEmpty,
            let password = password, !password.isEmpty {
@@ -70,50 +66,56 @@ class FileUploader: NSObject {
         do {
             bodyURL = try multipartBody(boundary: boundary, fileURL: fileURL)
         } catch {
-            delegate?.error(error: error.localizedDescription)
+            report(error: error.localizedDescription, to: completion)
             return
         }
 
         urlSession.uploadTask(with: request, fromFile: bodyURL) { data, response, error in
             try? FileManager.default.removeItem(at: bodyURL)
-            self.completionHandler(data: data, response: response, error: error)
+            self.completionHandler(data: data, response: response, error: error, completion: completion)
         }.resume()
     }
     
-    func completionHandler(data: Data?, response: URLResponse?, error: Error?) -> Void {
-        self.fileURL = nil
-
+    func completionHandler(data: Data?, response: URLResponse?, error: Error?,
+                           completion: Completion? = nil) -> Void {
         if let error = error {
-            delegate?.error(error: error.localizedDescription)
+            report(error: error.localizedDescription, to: completion)
             return
         }
 
         guard let httpResponse = response as? HTTPURLResponse else {
-            delegate?.error(error: "No response from the server")
+            report(error: "No response from the server", to: completion)
             return
         }
 
         guard 200..<300 ~= httpResponse.statusCode else {
-            delegate?.error(error: FileUploader.message(forStatusCode: httpResponse.statusCode))
+            report(error: FileUploader.message(forStatusCode: httpResponse.statusCode), to: completion)
             return
         }
 
         guard let data = data else {
-            delegate?.error(error: "No data from server")
+            report(error: "No data from server", to: completion)
             return
         }
 
         do {
             let decodedResponse = try JSONDecoder().decode(FileCloudResponse.self, from: data)
             guard let serverURL = serverURL else {
-                delegate?.error(error: "Server URL is not configured")
+                report(error: "Server URL is not configured", to: completion)
                 return
             }
             let uploadedURL = serverURL.appendingPathComponent(decodedResponse.url)
             delegate?.uploaded(url: uploadedURL)
+            completion?(.success(uploadedURL))
         } catch {
-            delegate?.error(error: "Could not read the response of the server")
+            report(error: "Could not read the response of the server", to: completion)
         }
+    }
+
+    /// Tells the delegate and the completion about the same failure.
+    private func report(error message: String, to completion: Completion?) {
+        delegate?.error(error: message)
+        completion?(.failure(UploadError.failed(message)))
     }
 
     static func message(forStatusCode statusCode: Int) -> String {
@@ -172,5 +174,15 @@ class FileUploader: NSObject {
         let fileExtension = fileURL.pathExtension
         
         return UTTypeReference.init(filenameExtension: fileExtension)?.preferredMIMEType
+    }
+}
+
+enum UploadError: LocalizedError {
+    case failed(String)
+
+    var errorDescription: String? {
+        switch self {
+        case .failed(let message): message
+        }
     }
 }
