@@ -8,7 +8,7 @@ struct MenuBarIcon: Scene {
     @EnvironmentObject private var appDelegate: AppDelegate
 
     var body: some Scene {
-        MenuBarExtra("File Cloud", systemImage: $appDelegate.icon.wrappedValue) {
+        MenuBarExtra("File Cloud", systemImage: appDelegate.icon.systemName) {
             MainMenu()
         }.menuBarExtraStyle(.menu)
         .menuBarExtraAccess(isPresented: $isMenuPresented)

@@ -4,7 +4,7 @@ import UserNotifications
 class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate, ObservableObject {
     let settings: SharedSettings
     var notifications: Bool = false
-    @Published var icon: String = "cloud.fill"
+    @Published var icon: UploadIcon = .idle
 
     /// The file waits here between the start of the drag and the drop.
     private var pendingFileURL: URL?
@@ -27,24 +27,26 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate, ObservableOb
         }
     }
 
-    func defaultIcon() {
-        self.icon = "cloud.fill"
-    }
-    
-    var resetTimer: Timer?
+    private var resetTimer: Timer?
 
-    func resetIconAfterDelay() {
-        resetTimer?.invalidate()
-        resetTimer = Timer.scheduledTimer(withTimeInterval: 2.5, repeats: false, block: { _ in
-            self.defaultIcon()
-        })
+    /// The only way the icon changes. AppKit needs the main thread, and the
+    /// delegate calls arrive on the queue of URLSession.
+    private func show(_ icon: UploadIcon) {
+        DispatchQueue.main.async {
+            self.resetTimer?.invalidate()
+            self.icon = icon
+
+            guard icon.isTemporary else { return }
+
+            self.resetTimer = Timer.scheduledTimer(withTimeInterval: UploadIcon.temporaryDuration,
+                                                   repeats: false) { _ in
+                self.show(.idle)
+            }
+        }
     }
     
     func error(error: String) {
-        DispatchQueue.main.async {
-            self.icon = "xmark"
-            self.resetIconAfterDelay()
-        }
+        show(.failure)
 
         displayNotification(title: "File Cloud Error", body: error)
         print(error)
@@ -52,10 +54,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate, ObservableOb
     
     func uploaded(url: URL) {
         print("Uploaded")
-        DispatchQueue.main.async {
-            self.icon = "checkmark"
-            self.resetIconAfterDelay()
+        show(.success)
 
+        // This runs on the queue of URLSession. AppKit needs the main thread.
+        DispatchQueue.main.async {
             let pasteboard = NSPasteboard.general
             pasteboard.declareTypes([NSPasteboard.PasteboardType.string], owner: nil)
             pasteboard.setString(url.absoluteString, forType: NSPasteboard.PasteboardType.string)
@@ -65,7 +67,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate, ObservableOb
     }
     
     func uploading() {
-        self.icon = "arrow.up"
+        show(.uploading)
     }
 
     func displayNotification(title: String, body: String) {
@@ -97,7 +99,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate, ObservableOb
     }
 
     @objc func dragEntered(_ sender: NSDraggingInfo) {
-        self.icon = "cloud"
+        show(.dragging)
 
         guard settings.uploadOnEnter,
               let fileURL = NSURL.init(from: sender.draggingPasteboard)?.standardized else {
@@ -122,7 +124,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate, ObservableOb
     
     @objc func dragExit(_ sender: Any? ) {
         if !settings.uploadOnEnter {
-            defaultIcon()
+            show(.idle)
         }
     }
 }
