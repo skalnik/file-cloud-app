@@ -51,13 +51,7 @@ class FileUploader: NSObject {
         var request = URLRequest(url: serverURL)
         request.httpMethod = "POST"
 
-        if let username = username, !username.isEmpty,
-           let password = password, !password.isEmpty {
-            let loginString = "\(username):\(password)"
-            let loginData = Data(loginString.utf8)
-            let base64LoginString = loginData.base64EncodedString()
-            request.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
-        }
+        request.setBasicAuth(username: username, password: password)
         
         let boundary = UUID().uuidString
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
