@@ -87,13 +87,12 @@ class ShareViewController: UIViewController {
             username: settings.username,
             password: settings.password
         )
-        uploader.fileURL = fileURL
 
         Task {
             defer { TemporaryFile.remove(fileURL) }
 
             do {
-                let url = try await uploader.uploadAsync()
+                let url = try await uploader.uploadAsync(fileURL: fileURL)
                 await MainActor.run {
                     UIPasteboard.general.url = url
                     self.finish(uploadedURL: url)
