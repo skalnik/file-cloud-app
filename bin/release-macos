@@ -1,0 +1,70 @@
+#!/bin/bash
+# Archives the macOS app, signs it with Developer ID, notarizes it, puts it on
+# a GitHub release, and pushes the new appcast.xml to main. Sparkle reads
+# appcast.xml from main.
+# Usage: bin/release-macos
+#
+# One-time setup:
+#   xcrun notarytool store-credentials file-cloud
+#   The Sparkle key "file-cloud" in the login Keychain (generate_keys --account file-cloud)
+
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+REPO="skalnik/file-cloud-app"
+NOTARY_PROFILE="${NOTARY_PROFILE:-file-cloud}"
+SPARKLE_ACCOUNT="file-cloud"
+
+BUILD="build/release"
+PACKAGES="build/SourcePackages"
+SPARKLE_BIN="${PACKAGES}/artifacts/sparkle/Sparkle/bin"
+ARCHIVE="${BUILD}/File Cloud.xcarchive"
+APP="${BUILD}/export/File Cloud.app"
+UPDATES="${BUILD}/updates"
+
+VERSION=$(sed -n 's/^ *MARKETING_VERSION: *//p' project.yml)
+TAG="v${VERSION}"
+ZIP="${UPDATES}/File-Cloud-${VERSION}.zip"
+
+if gh release view "$TAG" --repo "$REPO" >/dev/null 2>&1; then
+	echo "Release ${TAG} exists. Run 'make bump' first." >&2
+	exit 1
+fi
+
+rm -rf "$BUILD"
+mkdir -p "$UPDATES"
+
+xcodegen generate
+
+xcodebuild archive \
+	-project "File Cloud.xcodeproj" -scheme "File Cloud (macOS)" \
+	-destination "generic/platform=macOS" -archivePath "$ARCHIVE" \
+	-clonedSourcePackagesDirPath "$PACKAGES" -allowProvisioningUpdates
+
+xcodebuild -exportArchive \
+	-archivePath "$ARCHIVE" -exportPath "${BUILD}/export" \
+	-exportOptionsPlist macOS/ExportOptions.plist -allowProvisioningUpdates
+
+# stapler fails when Apple did not accept the upload, so it is the check for
+# the notarization result.
+ditto -c -k --keepParent "$APP" "${BUILD}/notarize.zip"
+xcrun notarytool submit "${BUILD}/notarize.zip" --keychain-profile "$NOTARY_PROFILE" --wait
+xcrun stapler staple "$APP"
+
+ditto -c -k --sequesterRsrc --keepParent "$APP" "$ZIP"
+
+cp appcast.xml "${UPDATES}/appcast.xml"
+"${SPARKLE_BIN}/generate_appcast" --account "$SPARKLE_ACCOUNT" \
+	--download-url-prefix "https://github.com/${REPO}/releases/download/${TAG}/" \
+	"$UPDATES"
+cp "${UPDATES}/appcast.xml" appcast.xml
+
+gh release create "$TAG" "$ZIP" --repo "$REPO" \
+	--title "File Cloud ${VERSION}" --generate-notes
+
+jj commit -m "Release ${VERSION} 🚀" appcast.xml
+jj bookmark set main -r @-
+jj git push --bookmark main
+
+echo "Released ${TAG}."
