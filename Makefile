@@ -1,7 +1,6 @@
 PROJECT := File Cloud.xcodeproj
 IOS_SCHEME := File Cloud (iOS)
 MAC_SCHEME := File Cloud (macOS)
-MAC_TARGET := File Cloud (macOS)
 MAC_APP := File Cloud.app
 SIMULATOR ?= iPhone 17
 IOS_BUILD_DESTINATION := generic/platform=iOS Simulator
@@ -57,7 +56,7 @@ test-macos: generate ## Run the macOS unit tests
 .PHONY: run
 run: build-macos ## Build and start the macOS app
 	@set -e -o pipefail; \
-	dir=$$(xcodebuild -project "$(PROJECT)" -target "$(MAC_TARGET)" \
+	dir=$$(xcodebuild -project "$(PROJECT)" -scheme "$(MAC_SCHEME)" \
 		-destination "$(MAC_DESTINATION)" -configuration Debug -showBuildSettings \
 		| awk -F' = ' '/ BUILT_PRODUCTS_DIR/ {print $$2; exit}'); \
 	test -n "$$dir"; \
