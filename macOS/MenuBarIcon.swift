@@ -2,6 +2,7 @@ import SwiftUI
 import MenuBarExtraAccess
 import AppKit
 import Combine
+import Sparkle
 
 struct MenuBarIcon: Scene {
     @State var isMenuPresented: Bool = false
@@ -9,18 +10,20 @@ struct MenuBarIcon: Scene {
 
     var body: some Scene {
         MenuBarExtra("File Cloud", systemImage: appDelegate.icon.systemName) {
-            MainMenu()
+            MainMenu(updater: appDelegate.updaterController.updater)
         }.menuBarExtraStyle(.menu)
         .menuBarExtraAccess(isPresented: $isMenuPresented)
     }
 }
 
 struct MainMenu: View {
+    let updater: SPUUpdater
     @Environment(\.openSettings) private var openSettings
 
     var body: some View {
         Text("📂☁️ File Cloud")
         Divider()
+        CheckForUpdatesButton(updater: updater)
         Button("Settings") {
             NSApp.activate()
             openSettings()

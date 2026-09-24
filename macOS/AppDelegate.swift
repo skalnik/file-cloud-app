@@ -1,8 +1,12 @@
 import AppKit
+import Sparkle
 import UserNotifications
 
 class AppDelegate: NSObject, NSApplicationDelegate, UploadDelegate, ObservableObject {
     let settings: SharedSettings
+    let updaterController = SPUStandardUpdaterController(startingUpdater: true,
+                                                         updaterDelegate: nil,
+                                                         userDriverDelegate: nil)
     var notifications: Bool = false
     @Published var icon: UploadIcon = .idle
 

@@ -8,5 +8,13 @@
 	<string>Copyright © 2025 Mike Skalnik</string>
 	<key>NSUserNotificationUsageDescription</key>
 	<string>File Cloud needs to send you notifications for upload status.</string>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
+	<key>SUEnableInstallerLauncherService</key>
+	<true/>
+	<key>SUFeedURL</key>
+	<string>https://raw.githubusercontent.com/skalnik/file-cloud-app/main/appcast.xml</string>
+	<key>SUPublicEDKey</key>
+	<string>GeU/AHS2hVvRFgJ8ypV1ihSZE54RruVgQKXevmwa2As=</string>
 </dict>
 </plist>

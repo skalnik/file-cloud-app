@@ -1,24 +1,26 @@
 #!/bin/bash
 # Sets the marketing version to today's date (YYYY.MM.DD) and the build number
-# to 1. The version lives in project.yml.
+# to the time (YYYYMMDDHHMM). Sparkle compares the build number, so it must
+# increase with each release. The version lives in project.yml.
 # Usage: bin/bump-version
 
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
-NEW_VERSION=$(date +"%Y.%m.%d")
+NOW=$(date +"%Y%m%d%H%M")
+NEW_VERSION="${NOW:0:4}.${NOW:4:2}.${NOW:6:2}"
 OLD_VERSION_PATTERN='[0-9]\{4\}\.[0-9]\{2\}\.[0-9]\{2\}'
 
 SPEC="project.yml"
 
 sed -i '' "s/MARKETING_VERSION: ${OLD_VERSION_PATTERN}/MARKETING_VERSION: ${NEW_VERSION}/" "$SPEC"
-sed -i '' "s/CURRENT_PROJECT_VERSION: [0-9]*/CURRENT_PROJECT_VERSION: 1/" "$SPEC"
+sed -i '' "s/CURRENT_PROJECT_VERSION: [0-9]*/CURRENT_PROJECT_VERSION: ${NOW}/" "$SPEC"
 
 if ! grep -q "MARKETING_VERSION: ${NEW_VERSION}" "$SPEC"; then
 	echo "Could not set the version in ${SPEC}" >&2
 	exit 1
 fi
 
-echo "Bumped version to ${NEW_VERSION} (build 1)"
+echo "Bumped version to ${NEW_VERSION} (build ${NOW})"
 echo "Run 'make generate' to update the Xcode project."

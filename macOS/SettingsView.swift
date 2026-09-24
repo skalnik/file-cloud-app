@@ -1,8 +1,10 @@
 import SwiftUI
 import LaunchAtLogin
+import Sparkle
 
 struct SettingsView: View {
     @EnvironmentObject var settings: SharedSettings
+    var updater: SPUUpdater?
     @State var pane = 1
 
     var body: some View {
@@ -22,6 +24,9 @@ struct SettingsView: View {
             
             VStack(alignment: .leading) {
                 LaunchAtLogin.Toggle()
+                if let updater {
+                    AutomaticUpdatesToggle(updater: updater)
+                }
                 Toggle(isOn: $settings.uploadOnEnter) {
                     HStack {
                         Text("Begin uploading upon drag enter")
