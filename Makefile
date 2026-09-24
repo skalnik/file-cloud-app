@@ -76,6 +76,10 @@ archive-ios: generate ## Make an iOS archive in build/
 		-destination "generic/platform=iOS" \
 		-archivePath "$(BUILD_DIR)/File Cloud (iOS).xcarchive" $(FORMAT)
 
+.PHONY: release-macos
+release-macos: ## Notarize the macOS app, make a GitHub release, and push appcast.xml
+	bin/release-macos
+
 .PHONY: bump
 bump: ## Set the version to today's date and the build number to 1
 	bin/bump-version
