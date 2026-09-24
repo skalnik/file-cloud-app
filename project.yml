@@ -18,6 +18,9 @@ packages:
   LaunchAtLogin:
     url: https://github.com/sindresorhus/LaunchAtLogin-Modern
     majorVersion: 1.1.0
+  Sparkle:
+    url: https://github.com/sparkle-project/Sparkle
+    majorVersion: 2.10.0
 
 settings:
   base:
@@ -92,6 +95,7 @@ targets:
     dependencies:
       - package: LaunchAtLogin
       - package: MenuBarExtraAccess
+      - package: Sparkle
     settings:
       base:
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon

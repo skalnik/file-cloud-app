@@ -20,7 +20,8 @@ struct File_CloudApp: App {
 #if os(macOS)
         MenuBarIcon().environmentObject(appDelegate)
         Settings {
-            SettingsView().environmentObject(appDelegate.settings)
+            SettingsView(updater: appDelegate.updaterController.updater)
+                .environmentObject(appDelegate.settings)
         }
 #endif
 #if os(iOS)
