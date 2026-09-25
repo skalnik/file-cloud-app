@@ -1,6 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
     <channel>
         <title>File Cloud</title>
+        <item>
+            <title>2026.09.25</title>
+            <pubDate>Fri, 25 Sep 2026 13:00:38 -0500</pubDate>
+            <sparkle:version>202609251259</sparkle:version>
+            <sparkle:shortVersionString>2026.09.25</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://github.com/skalnik/file-cloud-app/releases/download/v2026.09.25/File-Cloud-2026.09.25.zip" length="3137413" type="application/octet-stream" sparkle:edSignature="yZkl5N4w6mfINEw5peO3+ii0q8bragySXyMcVADd1nAFejbmpiucDBjEpktYE8d6JMhlo9/lB5enQtcHj/37AA=="/>
+        </item>
     </channel>
 </rss>
