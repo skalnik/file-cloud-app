@@ -28,5 +28,7 @@ For each release:
 ### iOS
 
 1. `make bump`
-2. Commit the change.
-3. `make archive-ios`.
+2. `make upload-ios`. This builds, archives, and uploads to App Store Connection.
+3. Wait for an email from John Apple
+4. In [App Store Connect](https://appstoreconnect.apple.com), open File Cloud,
+   and do the needful paperwork.
