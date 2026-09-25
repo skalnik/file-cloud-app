@@ -27,6 +27,14 @@ For each release:
 
 ### iOS
 
+Do this step one time: in Xcode, open Settings > Accounts and sign in with an
+Apple ID of the team. `xcodebuild` uses this account to sign and upload.
+
+For each release:
+
 1. `make bump`
-2. Commit the change.
-3. `make archive-ios`.
+2. Commit the change and push it to `main`.
+3. `make upload-ios`. This builds, archives, and uploads to App Store Connection.
+4. Wait for an email from John Apple
+5. In [App Store Connect](https://appstoreconnect.apple.com), open File Cloud,
+   and do the needful paperwork.
